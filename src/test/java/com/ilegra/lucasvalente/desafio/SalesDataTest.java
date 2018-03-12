@@ -9,23 +9,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class SalesDataTest {
 
-    @DisplayName("It has ID and the Salesman name responsible for the sale")
+    @DisplayName("It has ID, a code and the name of the responsible salesman")
     @Test
     void testBasicProperties() {
-        SalesData salesData = new SalesData("003", "Renato", List.of());
+        SalesData salesData = new SalesData("003", "10", List.of(), "Renato");
 
         assertThat(salesData.getId()).isEqualTo("003");
-        assertThat(salesData.getName()).isEqualTo("Renato");
+        assertThat(salesData.getCode()).isEqualTo("10");
+        assertThat(salesData.getSalesmanName()).isEqualTo("Renato");
     }
 
     @DisplayName("It also has a list of items sold")
     @Test
     void testItemSold() {
-        SalesData salesData = new SalesData("003", "Renato", List.of(
+        List<SalesDataItem> itemsSold = List.of(
                 new SalesDataItem("2", 2, 15.0),
                 new SalesDataItem("60", 150, 0.25),
-                new SalesDataItem("0", 2, 1.0)
-        ));
+                new SalesDataItem("0", 2, 1.0));
+
+        SalesData salesData = new SalesData("003", "1", itemsSold, "Renato");
 
         assertThat(salesData.getItemsSold()).hasSize(3);
     }
