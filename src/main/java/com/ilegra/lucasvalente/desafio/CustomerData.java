@@ -1,5 +1,7 @@
 package com.ilegra.lucasvalente.desafio;
 
+import java.util.Objects;
+
 public class CustomerData {
 
     private final String id;
@@ -28,5 +30,32 @@ public class CustomerData {
 
     public String getBusinessArea() {
         return businessArea;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomerData that = (CustomerData) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(cnpj, that.cnpj) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(businessArea, that.businessArea);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, cnpj, name, businessArea);
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerData{" +
+                "id='" + id + '\'' +
+                ", cnpj='" + cnpj + '\'' +
+                ", name='" + name + '\'' +
+                ", businessArea='" + businessArea + '\'' +
+                '}';
     }
 }
