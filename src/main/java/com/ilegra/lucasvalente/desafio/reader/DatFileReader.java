@@ -1,4 +1,4 @@
-package com.ilegra.lucasvalente.desafio;
+package com.ilegra.lucasvalente.desafio.reader;
 
 import java.io.BufferedReader;
 import java.io.File;
