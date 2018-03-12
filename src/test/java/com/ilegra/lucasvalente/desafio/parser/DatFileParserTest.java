@@ -1,9 +1,8 @@
-package com.ilegra.lucasvalente.desafio;
+package com.ilegra.lucasvalente.desafio.parser;
 
 import com.ilegra.lucasvalente.desafio.pojos.CustomerData;
 import com.ilegra.lucasvalente.desafio.pojos.SalesData;
 import com.ilegra.lucasvalente.desafio.pojos.SalesmanData;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

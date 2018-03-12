@@ -1,5 +1,4 @@
-package com.ilegra.lucasvalente.desafio;
-
+package com.ilegra.lucasvalente.desafio.parser;
 
 import com.ilegra.lucasvalente.desafio.pojos.CustomerData;
 import com.ilegra.lucasvalente.desafio.pojos.SalesData;
