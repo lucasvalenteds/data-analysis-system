@@ -1,16 +1,16 @@
-package com.ilegra.lucasvalente.desafio;
+package com.ilegra.lucasvalente.desafio.pojos;
 
 import java.util.List;
 import java.util.Objects;
 
-class SalesData {
+public class SalesData {
 
     private final String id;
     private final String code;
     private final List<SalesDataItem> itemsSold;
     private final String salesmanName;
 
-    SalesData(String id, String code, List<SalesDataItem> itemsSold, String salesmanName) {
+    public SalesData(String id, String code, List<SalesDataItem> itemsSold, String salesmanName) {
         this.id = id;
         this.code = code;
         this.itemsSold = itemsSold;

@@ -1,4 +1,4 @@
-package com.ilegra.lucasvalente.desafio;
+package com.ilegra.lucasvalente.desafio.pojos;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

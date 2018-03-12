@@ -1,5 +1,8 @@
 package com.ilegra.lucasvalente.desafio;
 
+import com.ilegra.lucasvalente.desafio.pojos.CustomerData;
+import com.ilegra.lucasvalente.desafio.pojos.SalesData;
+import com.ilegra.lucasvalente.desafio.pojos.SalesmanData;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -59,7 +62,6 @@ class DatFileParserTest {
     }
 
     @DisplayName("It can aggregate SalesData and SalesItemData")
-    @Disabled
     @Test
     void testParseSalesItemBabySteps() {
         String saleAsString = "003ç10ç[ 1-10-100 , 2-30-2.50 , 3-40-3.10 ]çDiego";

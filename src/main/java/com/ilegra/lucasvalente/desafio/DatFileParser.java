@@ -1,6 +1,11 @@
 package com.ilegra.lucasvalente.desafio;
 
 
+import com.ilegra.lucasvalente.desafio.pojos.CustomerData;
+import com.ilegra.lucasvalente.desafio.pojos.SalesData;
+import com.ilegra.lucasvalente.desafio.pojos.SalesDataItem;
+import com.ilegra.lucasvalente.desafio.pojos.SalesmanData;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,4 +1,4 @@
-package com.ilegra.lucasvalente.desafio;
+package com.ilegra.lucasvalente.desafio.pojos;
 
 import java.util.Objects;
 
@@ -9,7 +9,7 @@ public class CustomerData {
     private final String name;
     private final String businessArea;
 
-    CustomerData(String id, String cnpj, String name, String businessArea) {
+    public CustomerData(String id, String cnpj, String name, String businessArea) {
         this.id = id;
         this.cnpj = cnpj;
         this.name = name;

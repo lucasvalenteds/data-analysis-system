@@ -1,15 +1,15 @@
-package com.ilegra.lucasvalente.desafio;
+package com.ilegra.lucasvalente.desafio.pojos;
 
 import java.util.Objects;
 
-class SalesmanData {
+public class SalesmanData {
 
     private final String id;
     private final String cpf;
     private final String name;
     private final double salary;
 
-    SalesmanData(String id, String cpf, String name, double salary) {
+    public SalesmanData(String id, String cpf, String name, double salary) {
         this.id = id;
         this.cpf = cpf;
         this.name = name;

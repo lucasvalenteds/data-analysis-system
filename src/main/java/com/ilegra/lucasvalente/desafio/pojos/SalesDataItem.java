@@ -1,14 +1,14 @@
-package com.ilegra.lucasvalente.desafio;
+package com.ilegra.lucasvalente.desafio.pojos;
 
 import java.util.Objects;
 
-class SalesDataItem {
+public class SalesDataItem {
 
     private final String id;
     private final int quantity;
     private final double price;
 
-    SalesDataItem(String id, int quantity, double price) {
+    public SalesDataItem(String id, int quantity, double price) {
         this.id = id;
         this.quantity = quantity;
         this.price = price;
