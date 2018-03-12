@@ -1,5 +1,7 @@
 package com.ilegra.lucasvalente.desafio;
 
+import java.util.Objects;
+
 class SalesmanData {
 
     private final String id;
@@ -28,5 +30,32 @@ class SalesmanData {
 
     public double getSalary() {
         return salary;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SalesmanData that = (SalesmanData) o;
+        return Double.compare(that.salary, salary) == 0 &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(cpf, that.cpf) &&
+                Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, cpf, name, salary);
+    }
+
+    @Override
+    public String toString() {
+        return "SalesmanData{" +
+                "id='" + id + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", name='" + name + '\'' +
+                ", salary=" + salary +
+                '}';
     }
 }
