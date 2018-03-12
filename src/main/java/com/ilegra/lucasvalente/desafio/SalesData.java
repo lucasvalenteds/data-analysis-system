@@ -40,14 +40,12 @@ class SalesData {
         SalesData salesData = (SalesData) o;
         return Objects.equals(id, salesData.id) &&
                 Objects.equals(code, salesData.code) &&
-                Objects.equals(itemsSold, salesData.itemsSold) &&
                 Objects.equals(salesmanName, salesData.salesmanName);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(id, code, itemsSold, salesmanName);
+        return Objects.hash(id, code, salesmanName);
     }
 
     @Override
