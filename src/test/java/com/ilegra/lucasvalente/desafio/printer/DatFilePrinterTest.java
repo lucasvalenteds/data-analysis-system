@@ -1,6 +1,5 @@
 package com.ilegra.lucasvalente.desafio.printer;
 
-import com.ilegra.lucasvalente.desafio.pojos.SalesmanData;
 import com.ilegra.lucasvalente.desafio.report.Report;
 import com.ilegra.lucasvalente.desafio.report.ReportMarkdown;
 import org.junit.jupiter.api.BeforeEach;
