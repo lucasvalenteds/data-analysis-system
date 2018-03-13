@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ReportTest {
+class ReportFromFileTest {
 
     private final List<SalesmanData> salesmenList = List.of(
             new SalesmanData("001", "1234567891234", "Diego", 50000.0),
@@ -33,7 +33,7 @@ class ReportTest {
                     new SalesDataItem("3", 40, 0.10)
             ), "Renato"));
 
-    private final Report report = new Report(salesmenList, customersList, salesList);
+    private final ReportFromFile report = new ReportFromFile(salesmenList, customersList, salesList);
 
     @DisplayName("The amount of clients can be found")
     @Test
