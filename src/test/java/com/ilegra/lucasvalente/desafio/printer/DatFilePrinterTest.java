@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -21,8 +22,8 @@ class DatFilePrinterTest {
     void setUpReportMock() {
         when(report.getAmountOfCustomers()).thenReturn(5);
         when(report.getAmountOfSalesmen()).thenReturn(3);
-        when(report.getMostExpensiveSaleId()).thenReturn("15");
-        when(report.getLeastProductiveSalesman()).thenReturn(new SalesmanData("15", "1234567891234", "Diego", 20400.0));
+        when(report.getMostExpensiveSaleId()).thenReturn(Optional.of("15"));
+        when(report.getLeastProductiveSalesman()).thenReturn(Optional.of("Diego"));
     }
 
     @DisplayName("It can print a report in a file")

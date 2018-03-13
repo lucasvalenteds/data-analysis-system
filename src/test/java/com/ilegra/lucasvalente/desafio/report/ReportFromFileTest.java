@@ -50,12 +50,14 @@ class ReportFromFileTest {
     @DisplayName("The id of the most expensive sale can be found")
     @Test
     void testTheMostExpensiveSaleCanBeFound() {
-        assertThat(report.getMostExpensiveSaleId()).isEqualTo("10");
+        assertThat(report.getMostExpensiveSaleId().isPresent()).isTrue();
+        assertThat(report.getMostExpensiveSaleId().get()).isEqualTo("10");
     }
 
     @DisplayName("The worst salesman is the one who sold less items")
     @Test
     void testTheLeastProductiveSalesmanCanBeFound() {
-        assertThat(report.getLeastProductiveSalesman().getName()).isEqualTo("Diego");
+        assertThat(report.getLeastProductiveSalesman().isPresent()).isTrue();
+        assertThat(report.getLeastProductiveSalesman().get()).isEqualTo("Diego");
     }
 }

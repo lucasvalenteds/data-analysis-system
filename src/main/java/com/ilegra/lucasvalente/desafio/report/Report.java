@@ -1,6 +1,6 @@
 package com.ilegra.lucasvalente.desafio.report;
 
-import com.ilegra.lucasvalente.desafio.pojos.SalesmanData;
+import java.util.Optional;
 
 public interface Report {
 
@@ -8,7 +8,7 @@ public interface Report {
 
     int getAmountOfSalesmen();
 
-    String getMostExpensiveSaleId();
+    Optional<String> getMostExpensiveSaleId();
 
-    SalesmanData getLeastProductiveSalesman();
+    Optional<String> getLeastProductiveSalesman();
 }

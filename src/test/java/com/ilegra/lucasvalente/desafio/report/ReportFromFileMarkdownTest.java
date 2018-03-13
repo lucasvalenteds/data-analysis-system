@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -16,8 +18,9 @@ class ReportFromFileMarkdownTest {
     void setUpReportMock() {
         when(report.getAmountOfCustomers()).thenReturn(10);
         when(report.getAmountOfSalesmen()).thenReturn(2);
-        when(report.getMostExpensiveSaleId()).thenReturn("08");
-        when(report.getLeastProductiveSalesman()).thenReturn(new SalesmanData("08", "1234567891234", "Diego", 50000.0));
+        when(report.getMostExpensiveSaleId()).thenReturn(Optional.of("08"));
+        when(report.getLeastProductiveSalesman())
+                .thenReturn(Optional.of("Diego"));
     }
 
     @DisplayName("It puts a star before all items in the report")

@@ -7,6 +7,7 @@ import org.javatuples.Pair;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class ReportFromFile implements Report {
 
@@ -31,7 +32,7 @@ public class ReportFromFile implements Report {
     }
 
     @Override
-    public String getMostExpensiveSaleId() {
+    public Optional<String> getMostExpensiveSaleId() {
         return salesList.stream()
                 .map(sale -> {
                     double finalPriceOfThisSale = sale.getItemsSold().stream()
@@ -41,12 +42,11 @@ public class ReportFromFile implements Report {
                     return new Pair<>(sale.getCode(), finalPriceOfThisSale);
                 })
                 .max(Comparator.comparing(Pair::getValue1))
-                .get() // TODO: 12/03/18 Handle empty file stream
-                .getValue0();
+                .map(Pair::getValue0);
     }
 
     @Override
-    public SalesmanData getLeastProductiveSalesman() {
+    public Optional<String> getLeastProductiveSalesman() {
         return salesmenList.stream()
                 .map(salesman -> {
                     double totalEarnedByThisSalesman = salesList.stream()
@@ -58,7 +58,7 @@ public class ReportFromFile implements Report {
                     return new Pair<>(salesman, totalEarnedByThisSalesman);
                 })
                 .max(Comparator.comparing(Pair::getValue1))
-                .get() // TODO: 12/03/18 Handle empty file stream
-                .getValue0();
+                .map(Pair::getValue0)
+                .map(SalesmanData::getName);
     }
 }
