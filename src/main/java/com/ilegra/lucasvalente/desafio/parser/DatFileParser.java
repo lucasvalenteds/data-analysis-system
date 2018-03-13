@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class DatFileParser {
+public class DatFileParser {
 
     public List<SalesmanData> findSalesmen(List<String> inputDataAsString) {
         return inputDataAsString.stream()
