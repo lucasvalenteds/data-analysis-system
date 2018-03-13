@@ -1,8 +1,6 @@
 package com.ilegra.lucasvalente.desafio.reader;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,28 +11,41 @@ import java.nio.file.WatchService;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-class DatFileReader {
+public class DatFileReader {
 
     private final Function<Object, Boolean> doesFilenameEndsWithDotDat = file -> file.toString().endsWith(".dat");
 
-    private final WatchKey key;
-    private final Path directoryWithDatFiles;
+    private WatchKey key;
+    private Path directoryWithDatFiles;
 
-    DatFileReader(Path directoryWithDatFiles) throws IOException {
-        WatchService watcher = directoryWithDatFiles.getFileSystem().newWatchService();
-        this.key = directoryWithDatFiles.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
-        this.directoryWithDatFiles = directoryWithDatFiles;
+    public DatFileReader(Path directoryWithDatFiles) {
+        try {
+            WatchService watcher = directoryWithDatFiles.getFileSystem().newWatchService();
+            this.key = directoryWithDatFiles.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
+            this.directoryWithDatFiles = directoryWithDatFiles;
+        } catch (IOException ex) {
+            // TODO:
+        }
     }
 
-    public Stream<File> listExistingDatFiles() throws IOException {
-        return Files.list(directoryWithDatFiles)
-                .map(Path::toFile)
-                .filter(doesFilenameEndsWithDotDat::apply)
-                .filter(File::isFile);
+    public Stream<File> listExistingDatFiles() {
+        try {
+            return Files.list(directoryWithDatFiles)
+                    .map(Path::toFile)
+                    .filter(doesFilenameEndsWithDotDat::apply)
+                    .filter(File::isFile);
+        } catch (IOException ex) {
+            return Stream.empty();
+        }
     }
 
-    public Stream<String> readContentOfExistingDatFiles(File file) throws IOException {
-        return new BufferedReader(new FileReader(file)).lines();
+    public Stream<String> readContentOfExistingDatFiles(File file) {
+        try {
+            return Files.newBufferedReader(file.toPath()).lines();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            return Stream.empty();
+        }
     }
 
     public Stream<File> listenForNewDatFiles() {

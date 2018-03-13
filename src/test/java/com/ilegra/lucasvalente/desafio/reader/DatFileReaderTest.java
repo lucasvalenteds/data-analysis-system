@@ -17,17 +17,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class DatFileReaderTest {
 
-    private static final Path testingFolderDirectory = Paths.get("src", "main", "resources", "testing");
+    private static final Path testingFolderDirectory = Paths.get("src", "main", "resources", "testing", "input");
     private static DatFileReader datFileReader;
 
     @BeforeAll
-    static void createInstanceOfTheTestSubject() throws IOException {
+    static void createInstanceOfTheTestSubject() {
         datFileReader = new DatFileReader(testingFolderDirectory.toAbsolutePath());
     }
 
     @DisplayName("It can list only files ending with .dat in a given folder")
     @Test
-    void testCanListDatFiles() throws IOException {
+    void testCanListDatFiles() {
         List<File> existingFiles = datFileReader.listExistingDatFiles().collect(Collectors.toList());
 
         assertThat(existingFiles).hasSize(3);
