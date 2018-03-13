@@ -1,8 +1,10 @@
 package com.ilegra.lucasvalente.desafio.reader;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,8 +14,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class DatFileReaderTest {
 
@@ -48,7 +52,7 @@ class DatFileReaderTest {
 
     @DisplayName("It can provide the content of a .dat file in a given path")
     @Test
-    void testItCanReadADatFile() throws IOException {
+    void testItCanReadADatFile() {
         Path pathOfFileToRead = testingFolderDirectory.resolve("input-a.dat").toAbsolutePath();
 
         List<String> linesOfTheFile = datFileReader
@@ -65,4 +69,28 @@ class DatFileReaderTest {
                         "003ç10ç[1-10-100,2-30-2.50,3-40-3.10]çDiego",
                         "003ç08ç[1-34-10,2-33-1.50,3-40-0.10]çRenato"));
     }
+
+    @DisplayName("Trying to read an invalid directory returns an empty Stream")
+    @Disabled(value = "Disabled due to lack of knowledge of how to test the exception")
+    @Test
+    void testTryingToReadAnInvalidDirectoryReturnsEmptyStream() {
+        Path invalidPath = Paths.get("???");
+
+        DatFileReader fileReader = new DatFileReader(invalidPath);
+
+        assertThat(fileReader.listExistingDatFiles()).isEqualTo(Stream.empty());
+    }
+
+    @DisplayName("Trying to read the content of an invalid file returns an empty Stream")
+    @Disabled(value = "Disabled due to lack of knowledge of how to test the exception")
+    @Test
+    void testTryingToReadAnInvalidFileContentReturnsEmptyStream() {
+        Path invalidPath = Paths.get("???");
+
+        DatFileReader fileReader = new DatFileReader(invalidPath);
+
+        assertThat(fileReader.readContentOfExistingDatFile(invalidPath.toFile())).isEqualTo(Stream.empty());
+    }
+
+
 }

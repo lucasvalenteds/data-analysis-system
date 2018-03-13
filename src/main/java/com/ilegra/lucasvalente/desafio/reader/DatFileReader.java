@@ -24,7 +24,7 @@ public class DatFileReader {
             this.key = directoryWithDatFiles.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
             this.directoryWithDatFiles = directoryWithDatFiles;
         } catch (IOException ex) {
-            // TODO:
+            ex.printStackTrace();
         }
     }
 
@@ -43,7 +43,6 @@ public class DatFileReader {
         try {
             return Files.newBufferedReader(file.toPath()).lines();
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
             return Stream.empty();
         }
     }
