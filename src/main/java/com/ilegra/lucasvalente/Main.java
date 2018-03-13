@@ -34,7 +34,7 @@ class Main {
                 fileReader.listenForNewDatFiles().forEach(newFile -> {
                     Path newFileAbsolutePath = inputFolderPath.resolve(newFile.toString());
 
-                    List<String> fileContent = fileReader.readContentOfExistingDatFiles(newFileAbsolutePath.toFile())
+                    List<String> fileContent = fileReader.readContentOfExistingDatFile(newFileAbsolutePath.toFile())
                             .collect(Collectors.toList());
 
                     List<CustomerData> customers = fileParser.findCustomers(fileContent);

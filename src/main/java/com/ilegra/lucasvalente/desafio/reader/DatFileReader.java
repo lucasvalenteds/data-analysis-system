@@ -39,7 +39,7 @@ public class DatFileReader {
         }
     }
 
-    public Stream<String> readContentOfExistingDatFiles(File file) {
+    public Stream<String> readContentOfExistingDatFile(File file) {
         try {
             return Files.newBufferedReader(file.toPath()).lines();
         } catch (IOException ex) {

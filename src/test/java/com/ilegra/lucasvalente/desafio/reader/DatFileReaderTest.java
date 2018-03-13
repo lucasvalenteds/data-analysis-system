@@ -52,7 +52,7 @@ class DatFileReaderTest {
         Path pathOfFileToRead = testingFolderDirectory.resolve("input-a.dat").toAbsolutePath();
 
         List<String> linesOfTheFile = datFileReader
-                .readContentOfExistingDatFiles(pathOfFileToRead.toFile())
+                .readContentOfExistingDatFile(pathOfFileToRead.toFile())
                 .collect(Collectors.toList());
 
         assertThat(linesOfTheFile)
