@@ -15,7 +15,7 @@ public class DatFilePrinter implements FilePrinter {
         try {
             bufferedWriter = new BufferedWriter(new PrintWriter(outputFilePath.toFile()));
         } catch (IOException ex) {
-            // TODO:
+            ex.printStackTrace();
         }
     }
 
@@ -26,7 +26,7 @@ public class DatFilePrinter implements FilePrinter {
             bufferedWriter.flush();
             bufferedWriter.close();
         } catch (IOException ex) {
-            // TODO:
+            ex.printStackTrace();
         }
     }
 }
