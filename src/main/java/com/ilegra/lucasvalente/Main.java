@@ -28,12 +28,14 @@ import java.util.stream.Collectors;
 
 class Main {
 
-    public static void main(final String[] args) {
-        Path basePath = Paths.get("src", "main", "resources", "production").toAbsolutePath();
-        Path inputFolderPath = basePath.resolve("input");
-        Path outputFolderPath = basePath.resolve("output");
+    private static Path basePath = Paths.get("src", "main", "resources", "production").toAbsolutePath();
+    private static Path inputFolderPath = basePath.resolve("data").resolve("in");
+    private static Path outputFolderPath = basePath.resolve("data").resolve("out");
 
-        DatFileReader fileReader = new DatFileReader(inputFolderPath);
+    private static String homepath = Optional.ofNullable(System.getenv("HOMEPATH")).orElse(inputFolderPath.toString());
+
+    public static void main(final String[] args) {
+        DatFileReader fileReader = new DatFileReader(Paths.get(homepath));
 
         LineParser<CustomerData> customerParser = new CustomerParser(new CustomerMapper());
         LineParser<SalesmanData> salesmanParser = new SalesmanParser(new SalesmanMapper());
@@ -64,7 +66,8 @@ class Main {
                     Report report = new ReportFromFile(salesmen, customers, sales);
                     ReportContentFormat reportFormattedInMarkdown = new ReportMarkdown(report);
 
-                    Path newFileOutputPath = outputFolderPath.resolve(newFile.toPath());
+                    Path newFileOutputPath = outputFolderPath.resolve(newFile.getName().replace(".dat", ".done.dat"));
+                    System.out.println(newFileOutputPath);
                     FilePrinter filePrinter = new DatFilePrinter(newFileOutputPath);
                     filePrinter.printIt(reportFormattedInMarkdown);
                 });
