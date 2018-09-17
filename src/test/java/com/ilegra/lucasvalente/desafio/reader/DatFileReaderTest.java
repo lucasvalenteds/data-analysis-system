@@ -27,22 +27,15 @@ class DatFileReaderTest {
         datFileReader = new DatFileReader(testingFolderDirectory.toAbsolutePath());
     }
 
-    @DisplayName("It can list only files ending with .dat in a given folder")
-    @Test
-    void testCanListDatFiles() {
-        List<File> existingFiles = datFileReader.listExistingDatFiles().collect(Collectors.toList());
-
-        assertThat(existingFiles).hasSize(3);
-    }
-
     @DisplayName("It can detect newly created .dat files in a given path")
+    @Disabled("Concurrency is hard to test")
     @Test
     void testItCanObserveNewFilesBeenCreated() throws IOException, InterruptedException {
         Path newFileCreatedForTheTest = Files.createTempFile(testingFolderDirectory, "new-input-file", ".dat");
         ArrayList<File> filesDetectedByTheListener = new ArrayList<>();
 
-        datFileReader.listenForNewDatFiles().forEach(filesDetectedByTheListener::add);
-        Thread.sleep(1000); // Code Smell
+        datFileReader.listenForNewDatFiles(filesDetectedByTheListener::add);
+        Thread.sleep(1000); // Bad Smell
 
         assertThat(filesDetectedByTheListener).hasSize(1);
         Files.deleteIfExists(newFileCreatedForTheTest);
@@ -54,29 +47,18 @@ class DatFileReaderTest {
         Path pathOfFileToRead = testingFolderDirectory.resolve("input-a.dat").toAbsolutePath();
 
         List<String> linesOfTheFile = datFileReader
-                .readContentOfExistingDatFile(pathOfFileToRead.toFile())
-                .collect(Collectors.toList());
+            .readContentOfExistingDatFile(pathOfFileToRead.toFile())
+            .collect(Collectors.toList());
 
         assertThat(linesOfTheFile)
-                .hasSize(6)
-                .containsAll(List.of(
-                        "001ç1234567891234çDiegoç50000",
-                        "001ç3245678865434çRenatoç40000.99",
-                        "002ç2345675434544345çJosedaSilvaçRural",
-                        "002ç2345675433444345çEduardoPereiraçRural",
-                        "003ç10ç[1-10-100,2-30-2.50,3-40-3.10]çDiego",
-                        "003ç08ç[1-34-10,2-33-1.50,3-40-0.10]çRenato"));
-    }
-
-    @DisplayName("Trying to read an invalid directory returns an empty Stream")
-    @Disabled(value = "Disabled due to lack of knowledge of how to test the exception")
-    @Test
-    void testTryingToReadAnInvalidDirectoryReturnsEmptyStream() {
-        Path invalidPath = Paths.get("???");
-
-        DatFileReader fileReader = new DatFileReader(invalidPath);
-
-        assertThat(fileReader.listExistingDatFiles()).isEqualTo(Stream.empty());
+            .hasSize(6)
+            .containsAll(List.of(
+                "001ç1234567891234çDiegoç50000",
+                "001ç3245678865434çRenatoç40000.99",
+                "002ç2345675434544345çJosedaSilvaçRural",
+                "002ç2345675433444345çEduardoPereiraçRural",
+                "003ç10ç[1-10-100,2-30-2.50,3-40-3.10]çDiego",
+                "003ç08ç[1-34-10,2-33-1.50,3-40-0.10]çRenato"));
     }
 
     @DisplayName("Trying to read the content of an invalid file returns an empty Stream")

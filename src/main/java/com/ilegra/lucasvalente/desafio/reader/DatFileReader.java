@@ -8,6 +8,7 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -19,24 +20,7 @@ public class DatFileReader {
     private Path directoryWithDatFiles;
 
     public DatFileReader(Path directoryWithDatFiles) {
-        try {
-            WatchService watcher = directoryWithDatFiles.getFileSystem().newWatchService();
-            this.key = directoryWithDatFiles.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
-            this.directoryWithDatFiles = directoryWithDatFiles;
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public Stream<File> listExistingDatFiles() {
-        try {
-            return Files.list(directoryWithDatFiles)
-                    .map(Path::toFile)
-                    .filter(doesFilenameEndsWithDotDat::apply)
-                    .filter(File::isFile);
-        } catch (IOException ex) {
-            return Stream.empty();
-        }
+        this.directoryWithDatFiles = directoryWithDatFiles;
     }
 
     public Stream<String> readContentOfExistingDatFile(File file) {
@@ -47,11 +31,23 @@ public class DatFileReader {
         }
     }
 
-    public Stream<File> listenForNewDatFiles() {
-        return key.pollEvents().stream()
-                .map(WatchEvent::context)
-                .filter(doesFilenameEndsWithDotDat::apply)
-                .map(Object::toString)
-                .map(File::new);
+    public Stream<File> listenForNewDatFiles(Consumer<File> fileConsumer) {
+        try (WatchService watcher = directoryWithDatFiles.getFileSystem().newWatchService()) {
+            directoryWithDatFiles.register(watcher, StandardWatchEventKinds.ENTRY_CREATE);
+            WatchKey key;
+            do {
+                key = watcher.take();
+                key.pollEvents().stream()
+                    .map(WatchEvent::context)
+                    .filter(doesFilenameEndsWithDotDat::apply)
+                    .map(Object::toString)
+                    .map(File::new)
+                    .forEach(fileConsumer);
+            } while (key.reset());
+        } catch (IOException | InterruptedException exception) {
+            return Stream.empty();
+        }
+
+        return Stream.empty();
     }
 }
