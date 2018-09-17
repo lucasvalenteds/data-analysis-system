@@ -18,17 +18,17 @@ class CustomerParserTest extends LineParserTest {
     @DisplayName("It can find a costumer data in a line")
     @Test
     void testItCanParseCustomer() {
-        List<Optional<CustomerData>> customers = fileParser.parseLines(inputDataAsString);
+        List<CustomerData> customers = fileParser.parseLines(inputDataAsString);
 
         assertThat(customers).hasSize(2);
-        assertThat(customers.stream().map(Optional::get).collect(Collectors.toList()))
-                .containsAll(List.of(
-                        new CustomerData("002", "2345675434544345", "Jose da Silva", "Rural"),
-                        new CustomerData("002", "2345675433444345", "Eduardo Pereira", "Rural")
-                ));
+        assertThat(customers)
+            .containsAll(List.of(
+                new CustomerData("002", "2345675434544345", "Jose da Silva", "Rural"),
+                new CustomerData("002", "2345675433444345", "Eduardo Pereira", "Rural")
+            ));
     }
 
-    @DisplayName("The customer identifier is 003")
+    @DisplayName("The customer identifier is 002")
     @Test
     void testIdentifier() {
         assertThat(fileParser.getDataClassIdentifier()).isEqualTo("002");

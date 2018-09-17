@@ -15,11 +15,10 @@ class ReportFromFileMarkdownTest {
 
     @BeforeEach
     void setUpReportMock() {
-        when(report.getAmountOfCustomers()).thenReturn(10);
-        when(report.getAmountOfSalesmen()).thenReturn(2);
+        when(report.getAmountOfCustomers()).thenReturn(Optional.of(10));
+        when(report.getAmountOfSalesmen()).thenReturn(Optional.of(2));
         when(report.getMostExpensiveSaleId()).thenReturn(Optional.of("08"));
-        when(report.getLeastProductiveSalesman())
-                .thenReturn(Optional.of("Diego"));
+        when(report.getLeastProductiveSalesman()).thenReturn(Optional.of("Diego"));
     }
 
     @DisplayName("It puts a star before all items in the report")
@@ -28,9 +27,9 @@ class ReportFromFileMarkdownTest {
         ReportContentFormat markdown = new ReportMarkdown(report);
 
         assertThat(markdown.applyFormat())
-                .contains("* Amount of clients in the production.input file: 10")
-                .contains("* Amount of salesman in the production.input file: 2")
-                .contains("* ID of the most expensive sale: 08")
-                .contains("* Worst salesman ever: Diego");
+            .contains("* Amount of clients in the production.input file: 10")
+            .contains("* Amount of salesman in the production.input file: 2")
+            .contains("* ID of the most expensive sale: 08")
+            .contains("* Worst salesman ever: Diego");
     }
 }

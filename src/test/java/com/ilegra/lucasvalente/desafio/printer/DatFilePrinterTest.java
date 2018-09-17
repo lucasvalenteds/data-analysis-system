@@ -24,8 +24,8 @@ class DatFilePrinterTest {
 
     @BeforeEach
     void setUpReportMock() {
-        when(report.getAmountOfCustomers()).thenReturn(5);
-        when(report.getAmountOfSalesmen()).thenReturn(3);
+        when(report.getAmountOfCustomers()).thenReturn(Optional.of(5));
+        when(report.getAmountOfSalesmen()).thenReturn(Optional.of(3));
         when(report.getMostExpensiveSaleId()).thenReturn(Optional.of("15"));
         when(report.getLeastProductiveSalesman()).thenReturn(Optional.of("Diego"));
     }

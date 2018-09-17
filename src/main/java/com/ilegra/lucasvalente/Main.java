@@ -51,20 +51,10 @@ class Main {
                     List<String> fileContent = fileReader.readContentOfExistingDatFile(newFileAbsolutePath.toFile())
                             .collect(Collectors.toList());
 
-                    List<CustomerData> customers = customerParser.parseLines(fileContent).stream()
-                            .map(Optional::get)
-                            .collect(Collectors.toList());
-
-                    List<SalesmanData> salesmen = salesmanParser.parseLines(fileContent).stream()
-                            .map(Optional::get)
-                            .collect(Collectors.toList());
-
-                    List<SalesData> sales = salesParser.parseLines(fileContent).stream()
-                            .map(Optional::get)
-                            .collect(Collectors.toList());
-
-                    Report report = new ReportFromFile(salesmen, customers, sales);
-                    ReportContentFormat reportFormattedInMarkdown = new ReportMarkdown(report);
+                    ReportContentFormat reportFormattedInMarkdown = new ReportMarkdown(new ReportFromFile(
+                        salesmanParser.parseLines(fileContent),
+                        customerParser.parseLines(fileContent),
+                        salesParser.parseLines(fileContent)));
 
                     Path newFileOutputPath = outputFolderPath.resolve(newFile.getName().replace(".dat", ".done.dat"));
                     System.out.println(newFileOutputPath);

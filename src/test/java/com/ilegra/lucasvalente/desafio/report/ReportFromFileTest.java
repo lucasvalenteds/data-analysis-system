@@ -4,6 +4,7 @@ import com.ilegra.lucasvalente.desafio.pojos.CustomerData;
 import com.ilegra.lucasvalente.desafio.pojos.SalesData;
 import com.ilegra.lucasvalente.desafio.pojos.SalesDataItem;
 import com.ilegra.lucasvalente.desafio.pojos.SalesmanData;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -38,13 +39,13 @@ class ReportFromFileTest {
     @DisplayName("The amount of clients can be found")
     @Test
     void testItCanFindTheAmountOfClients() {
-        assertThat(report.getAmountOfCustomers()).isEqualTo(2);
+        assertThat(report.getAmountOfCustomers()).isEqualTo(Optional.of(2));
     }
 
     @DisplayName("The amount of salesmen can be found")
     @Test
     void testItCanFindTheAmountOfSalesmen() {
-        assertThat(report.getAmountOfSalesmen()).isEqualTo(2);
+        assertThat(report.getAmountOfSalesmen()).isEqualTo(Optional.of(2));
     }
 
     @DisplayName("The id of the most expensive sale can be found")

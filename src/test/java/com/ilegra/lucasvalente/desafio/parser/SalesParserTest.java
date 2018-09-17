@@ -19,14 +19,12 @@ class SalesParserTest extends LineParserTest {
     @DisplayName("It can find a costumer data in a line")
     @Test
     void testItCanParseCustomer() {
-        List<Optional<SalesData>> sales = fileParser.parseLines(inputDataAsString);
+        List<SalesData> sales = fileParser.parseLines(inputDataAsString);
 
         assertThat(sales).hasSize(2);
-        List<SalesData> salesList = sales.stream().map(Optional::get).collect(Collectors.toList());
-
-        assertThat(salesList.stream().map(SalesData::getSalesmanName)).contains("Diego", "Renato");
-        assertThat(salesList.stream().map(SalesData::getId)).contains("003", "003");
-        assertThat(salesList.stream().map(SalesData::getCode)).contains("10", "08");
+        assertThat(sales.stream().map(SalesData::getSalesmanName)).contains("Diego", "Renato");
+        assertThat(sales.stream().map(SalesData::getId)).contains("003", "003");
+        assertThat(sales.stream().map(SalesData::getCode)).contains("10", "08");
     }
 
     @DisplayName("The customer identifier is 003")

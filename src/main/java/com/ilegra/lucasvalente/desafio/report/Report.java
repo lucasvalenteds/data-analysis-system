@@ -4,9 +4,9 @@ import java.util.Optional;
 
 public interface Report {
 
-    int getAmountOfCustomers();
+    Optional<Integer> getAmountOfCustomers();
 
-    int getAmountOfSalesmen();
+    Optional<Integer> getAmountOfSalesmen();
 
     Optional<String> getMostExpensiveSaleId();
 

@@ -18,15 +18,15 @@ class SalesmanParserTest extends LineParserTest {
     @DisplayName("It can find a salesman data in a line")
     @Test
     void testItCanParseSalesman() {
-        List<Optional<SalesmanData>> salesmen = fileParser.parseLines(inputDataAsString);
+        List<SalesmanData> salesmen = fileParser.parseLines(inputDataAsString);
 
         assertThat(salesmen).hasSize(2);
-        assertThat(salesmen.stream().map(Optional::get).collect(Collectors.toList())).containsAll(List.of(
-                new SalesmanData("001", "1234567891234", "Diego", 50000.0),
-                new SalesmanData("001", "3245678865434", "Renato", 40000.99)));
+        assertThat(salesmen).containsAll(List.of(
+            new SalesmanData("001", "1234567891234", "Diego", 50000.0),
+            new SalesmanData("001", "3245678865434", "Renato", 40000.99)));
     }
 
-    @DisplayName("The customer identifier is 003")
+    @DisplayName("The customer identifier is 001")
     @Test
     void testIdentifier() {
         assertThat(fileParser.getDataClassIdentifier()).isEqualTo("001");

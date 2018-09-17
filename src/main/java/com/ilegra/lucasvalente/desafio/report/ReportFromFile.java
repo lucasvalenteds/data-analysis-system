@@ -22,43 +22,43 @@ public class ReportFromFile implements Report {
     }
 
     @Override
-    public int getAmountOfCustomers() {
-        return customersList.size();
+    public Optional<Integer> getAmountOfCustomers() {
+        return Optional.of(customersList.size());
     }
 
     @Override
-    public int getAmountOfSalesmen() {
-        return salesmenList.size();
+    public Optional<Integer> getAmountOfSalesmen() {
+        return Optional.of(salesmenList.size());
     }
 
     @Override
     public Optional<String> getMostExpensiveSaleId() {
         return salesList.stream()
-                .map(sale -> {
-                    double finalPriceOfThisSale = sale.getItemsSold().stream()
-                            .mapToDouble(it -> it.getQuantity() * it.getPrice())
-                            .sum();
+            .map(sale -> {
+                double finalPriceOfThisSale = sale.getItemsSold().stream()
+                    .mapToDouble(it -> it.getQuantity() * it.getPrice())
+                    .sum();
 
-                    return new Pair<>(sale.getCode(), finalPriceOfThisSale);
-                })
-                .max(Comparator.comparing(Pair::getValue1))
-                .map(Pair::getValue0);
+                return new Pair<>(sale.getCode(), finalPriceOfThisSale);
+            })
+            .max(Comparator.comparing(Pair::getValue1))
+            .map(Pair::getValue0);
     }
 
     @Override
     public Optional<String> getLeastProductiveSalesman() {
         return salesmenList.stream()
-                .map(salesman -> {
-                    double totalEarnedByThisSalesman = salesList.stream()
-                            .filter(it -> it.getSalesmanName().equals(salesman.getName()))
-                            .flatMap(it -> it.getItemsSold().stream())
-                            .mapToDouble(it -> it.getQuantity() * it.getPrice())
-                            .sum();
+            .map(salesman -> {
+                double totalEarnedByThisSalesman = salesList.stream()
+                    .filter(it -> it.getSalesmanName().equals(salesman.getName()))
+                    .flatMap(it -> it.getItemsSold().stream())
+                    .mapToDouble(it -> it.getQuantity() * it.getPrice())
+                    .sum();
 
-                    return new Pair<>(salesman, totalEarnedByThisSalesman);
-                })
-                .max(Comparator.comparing(Pair::getValue1))
-                .map(Pair::getValue0)
-                .map(SalesmanData::getName);
+                return new Pair<>(salesman, totalEarnedByThisSalesman);
+            })
+            .max(Comparator.comparing(Pair::getValue1))
+            .map(Pair::getValue0)
+            .map(SalesmanData::getName);
     }
 }
