@@ -29,7 +29,7 @@ build:
   stage: build
   image: openjdk:11-jre-slim
   script:
-    - ./gradlew shadowJar
+    - ./gradlew jar
     - mv build/libs/lucasvalente-0.1.0.jar ./
   artifacts:
     paths:
