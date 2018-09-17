@@ -1,57 +1,56 @@
-image: gradle:4.6.0-jdk9
-
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  APP_VERSION: 0.1.0
 
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
-stages:
-  - build
-  - test
-  - deploy
+cache:
+  paths:
+    - .gradle
 
-build:
-  stage: build
-  script: gradle --build-cache assemble
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    policy: push
-    paths:
-      - build
-      - .gradle
+stages:
+  - test
+  - build
+  - package
 
 test:
   stage: test
-  script: gradle test
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    policy: pull
-    paths:
-      - build
-      - .gradle
-
-deploy:
-  stage: deploy
-  image: docker:latest
-  services:
-    - docker:dind
+  image: openjdk:11-jre-slim
   script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
-    - docker push "$CI_REGISTRY_IMAGE"
+    - ./gradlew check
+    - mv build/reports/jacoco/test/html/index.html index.html
+    - cat index.html
+  artifacts:
+    paths:
+      - index.html
+
+build:
+  stage: build
+  image: openjdk:11-jre-slim
+  script:
+    - ./gradlew shadowJar
+    - mv build/libs/lucasvalente-0.1.0.jar ./
+  artifacts:
+    paths:
+      - lucasvalente-0.1.0.jar
+    when: on_success
+    expire_in: 1 week
   only:
     - main
 
-deploy-dev:
-  stage: deploy
+docker-image:
+  stage: package
   image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay2
   services:
     - docker:dind
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
   script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
-  except:
+    - docker build --tag gradle:4.10.1-jdk11-slim --file Dockerfile.gradleJdk11 .
+    - docker build --tag "$CI_REGISTRY_IMAGE:$APP_VERSION" .
+    - docker push "$CI_REGISTRY_IMAGE:$APP_VERSION"
+  only:
     - main
-

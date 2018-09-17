@@ -1,0 +1,9 @@
+---
+version: 0.1.0
+files:
+  .gitlab-ci.yml:
+  - 'lucasvalente-%.%.%.jar'
+  - 'APP_VERSION: %.%.%'
+  build.gradle.kts: 'version = "%.%.%"'
+  docker-compose.yml: 'lucasvalente:%.%.%'
+  Dockerfile: 'lucasvalente-%.%.%.jar'
