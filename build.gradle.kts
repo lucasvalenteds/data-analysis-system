@@ -7,7 +7,7 @@ plugins {
     id("se.patrikerdes.use-latest-versions") version "0.2.3"
 }
 
-group = "com.ilegra.lucasvalente"
+group = "io.lucasvalenteds"
 version = "0.1.0"
 
 repositories {
@@ -25,7 +25,7 @@ dependencies {
 }
 
 configure<ApplicationPluginConvention> {
-    mainClassName = "com.ilegra.lucasvalente.Main"
+    mainClassName = "$group.batch.Main"
 }
 
 configure<JavaPluginConvention> {
