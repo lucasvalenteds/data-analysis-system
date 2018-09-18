@@ -39,7 +39,7 @@ public class DatFileListener implements FileListener {
                     .forEach(file -> fileConsumer.accept(file, datFileReader));
             } while (key.reset());
         } catch (IOException | InterruptedException exception) {
-            LOGGER.warn(exception.getMessage());
+            LOGGER.warn("Could not listen the folder: " + exception.getMessage());
             errorConsumer.accept(exception);
         }
     }

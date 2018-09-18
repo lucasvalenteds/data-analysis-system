@@ -16,7 +16,7 @@ public class DatFileReader implements FileReader {
         try {
             return Files.newBufferedReader(file).lines();
         } catch (IOException exception) {
-            LOGGER.warn(exception.getMessage());
+            LOGGER.warn("Could not read the file: " + exception.getMessage());
             return Stream.empty();
         }
     }

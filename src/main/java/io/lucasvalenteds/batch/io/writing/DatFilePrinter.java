@@ -23,7 +23,7 @@ public class DatFilePrinter implements FilePrinter {
         try (var buffer = Files.newBufferedWriter(outputFilePath)) {
             buffer.write(reportFormat.applyFormat());
         } catch (IOException exception) {
-            LOGGER.warn(exception.getMessage());
+            LOGGER.warn("Could not write the file: " + exception.getMessage());
         }
     }
 }
