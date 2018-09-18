@@ -1,8 +1,11 @@
+import com.adarshr.gradle.testlogger.TestLoggerExtension
+
 plugins {
     java
     application
     jacoco
     id("com.adarshr.test-logger") version "1.5.0"
+    id("com.github.ksoichiro.console.reporter") version "0.5.0"
     id("com.github.ben-manes.versions") version "0.20.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.3"
 }
