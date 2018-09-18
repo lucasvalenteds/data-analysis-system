@@ -9,8 +9,12 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DatFileListener implements FileListener {
+
+    private static final Logger LOGGER = LogManager.getLogger(DatFileReader.class);
 
     private Path directoryWithDatFiles;
     private FileReader datFileReader;
@@ -35,6 +39,7 @@ public class DatFileListener implements FileListener {
                     .forEach(file -> fileConsumer.accept(file, datFileReader));
             } while (key.reset());
         } catch (IOException | InterruptedException exception) {
+            LOGGER.warn(exception.getMessage());
             errorConsumer.accept(exception);
         }
     }

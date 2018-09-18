@@ -16,8 +16,12 @@ import io.lucasvalenteds.batch.report.ReportFromFile;
 import io.lucasvalenteds.batch.report.ReportMarkdown;
 import java.nio.file.Path;
 import java.util.stream.Collectors;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 class Main {
+
+    private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
     public static void main(final String[] args) {
         var fileManager = FileManager.forDirectory(Path.of(System.getProperty("user.dir")))
@@ -25,13 +29,17 @@ class Main {
             .fromExtension(FileExtensions.DAT).toExtension(FileExtensions.DONE_DAT)
             .create();
 
+        LOGGER.info("Base path: " + fileManager.getBasePath());
+        LOGGER.info("Input path: " + fileManager.getInputPath());
+        LOGGER.info("Output path: " + fileManager.getOutputPath());
+
         var fileListener = new DatFileListener(fileManager.getInputPath(), new DatFileReader());
 
-        fileListener.listenForNewFiles(System.err::println, (newFile, reader) -> {
+        fileListener.listenForNewFiles(LOGGER::throwing, (newFile, reader) -> {
+            LOGGER.info("Processing " + fileManager.resolveOutputFor(newFile.getName()));
+
             var lines = reader.readLines(fileManager.resolveInputFor(newFile.getName()))
                 .collect(Collectors.toList());
-
-            System.out.println(fileManager.resolveOutputFor(newFile.getName()));
 
             new DatFilePrinter(fileManager.resolveOutputFor(newFile.getName()))
                 .printIt(new ReportMarkdown(new ReportFromFile(

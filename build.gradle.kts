@@ -16,7 +16,11 @@ repositories {
 }
 
 dependencies {
+    implementation("org.apache.logging.log4j:log4j-api:2.11.1")
+    implementation("org.apache.logging.log4j:log4j-core:2.11.1")
+
     implementation("org.javatuples:javatuples:1.2")
+
     testImplementation("org.mockito:mockito-core:2.22.0")
     testImplementation("org.assertj:assertj-core:3.11.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.1")
