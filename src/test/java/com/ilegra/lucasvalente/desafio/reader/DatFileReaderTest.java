@@ -92,7 +92,7 @@ class DatFileReaderTest {
     @Test
     void testReadingSuccess() {
         var linesOfTheFile = new DatFileReader(testingClasspath.toAbsolutePath())
-            .readContentOfExistingDatFile(pathOfFileToRead.toFile())
+            .readContentOfExistingDatFile(pathOfFileToRead)
             .collect(Collectors.toList());
 
         assertThat(linesOfTheFile)
@@ -106,7 +106,7 @@ class DatFileReaderTest {
         var invalidPath = testingClasspath.resolve("not-found");
 
         var linesRead = new DatFileReader(invalidPath)
-            .readContentOfExistingDatFile(invalidPath.toFile());
+            .readContentOfExistingDatFile(invalidPath);
 
         assertThat(linesRead.count()).isEqualTo(0);
     }

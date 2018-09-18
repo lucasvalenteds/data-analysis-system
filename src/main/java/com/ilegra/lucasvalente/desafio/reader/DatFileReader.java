@@ -16,16 +16,15 @@ public class DatFileReader {
 
     private final Function<Object, Boolean> doesFilenameEndsWithDotDat = file -> file.toString().endsWith(".dat");
 
-    private WatchKey key;
     private Path directoryWithDatFiles;
 
     public DatFileReader(Path directoryWithDatFiles) {
         this.directoryWithDatFiles = directoryWithDatFiles;
     }
 
-    public Stream<String> readContentOfExistingDatFile(File file) {
+    public Stream<String> readContentOfExistingDatFile(Path file) {
         try {
-            return Files.newBufferedReader(file.toPath()).lines();
+            return Files.newBufferedReader(file).lines();
         } catch (IOException ex) {
             return Stream.empty();
         }

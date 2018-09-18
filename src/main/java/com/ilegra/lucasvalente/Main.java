@@ -5,54 +5,38 @@ import com.ilegra.lucasvalente.desafio.mappers.SalesDataItemMapper;
 import com.ilegra.lucasvalente.desafio.mappers.SalesMapper;
 import com.ilegra.lucasvalente.desafio.mappers.SalesmanMapper;
 import com.ilegra.lucasvalente.desafio.parser.CustomerParser;
-import com.ilegra.lucasvalente.desafio.parser.LineParser;
 import com.ilegra.lucasvalente.desafio.parser.SalesParser;
 import com.ilegra.lucasvalente.desafio.parser.SalesmanParser;
-import com.ilegra.lucasvalente.desafio.pojos.CustomerData;
-import com.ilegra.lucasvalente.desafio.pojos.SalesData;
-import com.ilegra.lucasvalente.desafio.pojos.SalesmanData;
 import com.ilegra.lucasvalente.desafio.printer.DatFilePrinter;
-import com.ilegra.lucasvalente.desafio.printer.FilePrinter;
 import com.ilegra.lucasvalente.desafio.reader.DatFileReader;
-import com.ilegra.lucasvalente.desafio.report.ReportContentFormat;
+import com.ilegra.lucasvalente.desafio.reader.FileExtensions;
+import com.ilegra.lucasvalente.desafio.reader.FileManager;
 import com.ilegra.lucasvalente.desafio.report.ReportFromFile;
 import com.ilegra.lucasvalente.desafio.report.ReportMarkdown;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 class Main {
 
-    private static Path basePath = Paths.get("src", "main", "resources", "production").toAbsolutePath();
-    private static Path inputFolderPath = basePath.resolve("data").resolve("in");
-    private static Path outputFolderPath = basePath.resolve("data").resolve("out");
-
-    private static String homepath = Optional.ofNullable(System.getenv("HOMEPATH")).orElse(inputFolderPath.toString());
-
     public static void main(final String[] args) {
-        DatFileReader fileReader = new DatFileReader(Paths.get(homepath));
+        var fileManager = FileManager.forDirectory(Path.of(System.getProperty("user.dir")))
+            .withInputFrom("data/in").toOutputIn("data/out")
+            .fromExtension(FileExtensions.DAT).toExtension(FileExtensions.DONE_DAT)
+            .create();
 
-        LineParser<CustomerData> customerParser = new CustomerParser(new CustomerMapper());
-        LineParser<SalesmanData> salesmanParser = new SalesmanParser(new SalesmanMapper());
-        LineParser<SalesData> salesParser = new SalesParser(new SalesMapper(new SalesDataItemMapper()));
+        var fileReader = new DatFileReader(fileManager.getInputPath());
 
         fileReader.listenForNewDatFiles(newFile -> {
-            Path newFileAbsolutePath = inputFolderPath.resolve(newFile.toString());
-
-            List<String> fileContent = fileReader.readContentOfExistingDatFile(newFileAbsolutePath.toFile())
+            var fileContent = fileReader.readContentOfExistingDatFile(fileManager.resolveInputFor(newFile.getName()))
                 .collect(Collectors.toList());
 
-            ReportContentFormat reportFormattedInMarkdown = new ReportMarkdown(new ReportFromFile(
-                salesmanParser.parseLines(fileContent),
-                customerParser.parseLines(fileContent),
-                salesParser.parseLines(fileContent)));
+            System.out.println(fileManager.resolveOutputFor(newFile.getName()));
 
-            Path newFileOutputPath = outputFolderPath.resolve(newFile.getName().replace(".dat", ".done.dat"));
-            System.out.println(newFileOutputPath);
-            FilePrinter filePrinter = new DatFilePrinter(newFileOutputPath);
-            filePrinter.printIt(reportFormattedInMarkdown);
+            new DatFilePrinter(fileManager.resolveOutputFor(newFile.getName()))
+                .printIt(new ReportMarkdown(new ReportFromFile(
+                    new SalesmanParser(new SalesmanMapper()).parseLines(fileContent),
+                    new CustomerParser(new CustomerMapper()).parseLines(fileContent),
+                    new SalesParser(new SalesMapper(new SalesDataItemMapper())).parseLines(fileContent))));
         });
     }
 }
