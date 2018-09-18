@@ -23,8 +23,8 @@ class ReportFromFileMarkdownTest {
 
     @DisplayName("It puts a star before all items in the report")
     @Test
-    void testItPutsAStarBeforeAllItemsInTheReport() {
-        ReportContentFormat markdown = new ReportMarkdown(report);
+    void testSuccess() {
+        var markdown = new ReportMarkdown(report);
 
         assertThat(markdown.applyFormat())
             .contains("* Amount of clients in the production.input file: 10")

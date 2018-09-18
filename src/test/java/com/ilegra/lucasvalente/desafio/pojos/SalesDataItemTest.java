@@ -10,7 +10,7 @@ class SalesDataItemTest {
     @DisplayName("It has ID, quantity and price")
     @Test
     void testItHasTheNecessaryProperties() {
-        SalesDataItem item = new SalesDataItem("1", 34, 1.50);
+        var item = new SalesDataItem("1", 34, 1.50);
 
         assertThat(item.getId()).isEqualTo("1");
         assertThat(item.getQuantity()).isEqualTo(34);

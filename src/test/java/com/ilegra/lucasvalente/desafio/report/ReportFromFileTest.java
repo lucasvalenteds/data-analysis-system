@@ -36,28 +36,28 @@ class ReportFromFileTest {
 
     private final ReportFromFile report = new ReportFromFile(salesmenList, customersList, salesList);
 
-    @DisplayName("The amount of clients can be found")
+    @DisplayName("Contains the amount of customers")
     @Test
-    void testItCanFindTheAmountOfClients() {
+    void testAmountOfCustomers() {
         assertThat(report.getAmountOfCustomers()).isEqualTo(Optional.of(2));
     }
 
-    @DisplayName("The amount of salesmen can be found")
+    @DisplayName("Contains the amount of salesmen")
     @Test
-    void testItCanFindTheAmountOfSalesmen() {
+    void testAmountOfSalesmen() {
         assertThat(report.getAmountOfSalesmen()).isEqualTo(Optional.of(2));
     }
 
-    @DisplayName("The id of the most expensive sale can be found")
+    @DisplayName("Contains the most expensive sale")
     @Test
-    void testTheMostExpensiveSaleCanBeFound() {
+    void testMostExpensiveSale() {
         assertThat(report.getMostExpensiveSaleId().isPresent()).isTrue();
         assertThat(report.getMostExpensiveSaleId().get()).isEqualTo("10");
     }
 
-    @DisplayName("The worst salesman is the one who sold less items")
+    @DisplayName("Contains the salesman less productive which is who sold less items")
     @Test
-    void testTheLeastProductiveSalesmanCanBeFound() {
+    void testLeastProductiveSalesman() {
         assertThat(report.getLeastProductiveSalesman().isPresent()).isTrue();
         assertThat(report.getLeastProductiveSalesman().get()).isEqualTo("Diego");
     }

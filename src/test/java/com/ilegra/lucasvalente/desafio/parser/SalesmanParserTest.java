@@ -2,12 +2,10 @@ package com.ilegra.lucasvalente.desafio.parser;
 
 import com.ilegra.lucasvalente.desafio.mappers.SalesmanMapper;
 import com.ilegra.lucasvalente.desafio.pojos.SalesmanData;
+import com.ilegra.lucasvalente.desafio.testing.DatFileFixtures;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,7 +16,7 @@ class SalesmanParserTest extends LineParserTest {
     @DisplayName("It can find a salesman data in a line")
     @Test
     void testItCanParseSalesman() {
-        List<SalesmanData> salesmen = fileParser.parseLines(inputDataAsString);
+        var salesmen = fileParser.parseLines(DatFileFixtures.validInputFileContent);
 
         assertThat(salesmen).hasSize(2);
         assertThat(salesmen).containsAll(List.of(
@@ -31,5 +29,4 @@ class SalesmanParserTest extends LineParserTest {
     void testIdentifier() {
         assertThat(fileParser.getDataClassIdentifier()).isEqualTo("001");
     }
-
 }

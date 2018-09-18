@@ -2,12 +2,10 @@ package com.ilegra.lucasvalente.desafio.parser;
 
 import com.ilegra.lucasvalente.desafio.mappers.CustomerMapper;
 import com.ilegra.lucasvalente.desafio.pojos.CustomerData;
+import com.ilegra.lucasvalente.desafio.testing.DatFileFixtures;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,10 +16,10 @@ class CustomerParserTest extends LineParserTest {
     @DisplayName("It can find a costumer data in a line")
     @Test
     void testItCanParseCustomer() {
-        List<CustomerData> customers = fileParser.parseLines(inputDataAsString);
+        var customers = fileParser.parseLines(DatFileFixtures.validInputFileContent);
 
-        assertThat(customers).hasSize(2);
         assertThat(customers)
+            .hasSize(2)
             .containsAll(List.of(
                 new CustomerData("002", "2345675434544345", "Jose da Silva", "Rural"),
                 new CustomerData("002", "2345675433444345", "Eduardo Pereira", "Rural")
@@ -33,5 +31,4 @@ class CustomerParserTest extends LineParserTest {
     void testIdentifier() {
         assertThat(fileParser.getDataClassIdentifier()).isEqualTo("002");
     }
-
 }

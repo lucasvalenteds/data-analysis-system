@@ -1,32 +1,24 @@
 package com.ilegra.lucasvalente.desafio.printer;
 
 import com.ilegra.lucasvalente.desafio.report.ReportContentFormat;
-
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class DatFilePrinter implements FilePrinter {
 
-    private BufferedWriter bufferedWriter;
+    private final Path outputFilePath;
 
     public DatFilePrinter(Path outputFilePath) {
-        try {
-            bufferedWriter = new BufferedWriter(new PrintWriter(outputFilePath.toFile()));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        this.outputFilePath = outputFilePath;
     }
 
     @Override
     public void printIt(ReportContentFormat reportFormat) {
-        try {
-            bufferedWriter.write(reportFormat.applyFormat());
-            bufferedWriter.flush();
-            bufferedWriter.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        try (var buffer = Files.newBufferedWriter(outputFilePath)) {
+            buffer.write(reportFormat.applyFormat());
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
     }
 }
