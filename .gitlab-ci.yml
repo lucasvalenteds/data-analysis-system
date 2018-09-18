@@ -1,6 +1,6 @@
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-  APP_VERSION: 0.1.0
+  APP_VERSION: 0.2.0
 
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
@@ -30,7 +30,7 @@ build:
   image: openjdk:11-jre-slim
   script:
     - ./gradlew jar
-    - mv build/libs/lucasvalente-0.1.0.jar ./
+    - mv build/libs/lucasvalente-0.2.0.jar ./
   artifacts:
     paths:
       - lucasvalente-0.1.0.jar
