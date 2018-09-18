@@ -7,6 +7,4 @@ public class FileExtensions {
 
     public static final FileExtension DONE_DAT = filename ->
         filename.replaceFirst(".dat", ".done.dat");
-
-    public static final FileExtension EMPTY = filename -> "";
 }

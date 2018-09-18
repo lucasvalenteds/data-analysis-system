@@ -16,10 +16,10 @@ public class DatFileListener implements FileListener {
 
     private static final Logger LOGGER = LogManager.getLogger(DatFileReader.class);
 
-    private Path directoryWithDatFiles;
-    private FileReader datFileReader;
+    private final Path directoryWithDatFiles;
+    private final FileReader datFileReader;
 
-    public DatFileListener(Path directoryWithDatFiles, FileReader datFileReader) {
+    public DatFileListener(final Path directoryWithDatFiles, final FileReader datFileReader) {
         this.directoryWithDatFiles = directoryWithDatFiles;
         this.datFileReader = datFileReader;
     }
