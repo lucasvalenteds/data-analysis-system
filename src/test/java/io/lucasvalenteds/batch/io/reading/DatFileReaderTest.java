@@ -1,18 +1,15 @@
 package io.lucasvalenteds.batch.io.reading;
 
 import io.lucasvalenteds.batch.testing.DatFileFixtures;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +22,6 @@ class DatFileReaderTest {
     private static Path testingPath;
 
     private Path pathOfFileToRead;
-    private Path pathOfFolderToBeDeleted;
 
     @BeforeAll
     static void setupClasspath() {
@@ -40,59 +36,17 @@ class DatFileReaderTest {
     @BeforeEach
     void setup() {
         createFileWithValidData();
-        createFolderToBeDeleted();
     }
 
     @AfterEach
     void teardown() {
         deleteFileWithValidData();
-        deleteFolderToCauseInterruption();
-    }
-
-    @DisplayName("It can detect newly created .dat files in a given path")
-    @Disabled("Concurrency is hard to test")
-    @Test
-    void testListenerSuccess() throws IOException, InterruptedException {
-        Path newFileCreatedForTheTest = Files.createTempFile(testingClasspath, "new-input-file", ".dat");
-        ArrayList<File> filesDetectedByTheListener = new ArrayList<>();
-
-        new DatFileReader(testingClasspath.toAbsolutePath())
-            .listenForNewDatFiles(filesDetectedByTheListener::add);
-        Thread.sleep(1000); // Bad Smell
-
-        assertThat(filesDetectedByTheListener).hasSize(1);
-        Files.deleteIfExists(newFileCreatedForTheTest);
-    }
-
-    @DisplayName("Trying to watch a invalid folder returns an empty Stream")
-    @Test
-    void testListenerFailureIO() {
-        var invalidPath = testingClasspath.resolve("not-found");
-
-        var stream = new DatFileReader(invalidPath)
-            .listenForNewDatFiles(newFile -> {
-            });
-
-        assertThat(stream.count()).isEqualTo(0);
-    }
-
-    @DisplayName("Deleting a folder been watched returns an empty Stream")
-    @Test
-    void testListenerFailureInterruption() {
-        new Thread(this::deleteFolderToCauseInterruption).start();
-
-        var stream = new DatFileReader(pathOfFolderToBeDeleted)
-            .listenForNewDatFiles(newFile -> {
-            });
-
-        assertThat(stream.count()).isEqualTo(0);
     }
 
     @DisplayName("It can provide the content of a .dat file in a given path")
     @Test
     void testReadingSuccess() {
-        var linesOfTheFile = new DatFileReader(testingClasspath.toAbsolutePath())
-            .readContentOfExistingDatFile(pathOfFileToRead)
+        var linesOfTheFile = new DatFileReader().readLines(pathOfFileToRead)
             .collect(Collectors.toList());
 
         assertThat(linesOfTheFile)
@@ -105,8 +59,7 @@ class DatFileReaderTest {
     void testReadingFailureIO() {
         var invalidPath = testingClasspath.resolve("not-found");
 
-        var linesRead = new DatFileReader(invalidPath)
-            .readContentOfExistingDatFile(invalidPath);
+        var linesRead = new DatFileReader().readLines(invalidPath);
 
         assertThat(linesRead.count()).isEqualTo(0);
     }
@@ -141,23 +94,6 @@ class DatFileReaderTest {
             Files.deleteIfExists(pathOfFileToRead);
         } catch (IOException exception) {
             fail("Deleting files for testing should be possible");
-        }
-    }
-
-    private void createFolderToBeDeleted() {
-        try {
-            this.pathOfFolderToBeDeleted = Files.createTempDirectory(testingClasspath, "delete-me");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void deleteFolderToCauseInterruption() {
-        try {
-            Thread.sleep(250);
-            Files.deleteIfExists(pathOfFolderToBeDeleted);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }
