@@ -1,9 +1,0 @@
----
-version: 0.2.0
-commit: Bump to version v%.%.%
-files:
-  ".gitlab-ci.yml":
-  - lucasvalente-%.%.%.jar
-  - 'APP_VERSION: %.%.%'
-  build.gradle.kts: version = "%.%.%"
-  Dockerfile: lucasvalente-%.%.%.jar
