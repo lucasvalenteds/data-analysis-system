@@ -11,8 +11,6 @@ version = "0.2.1"
 
 plugins {
     java
-    id("com.github.ben-manes.versions") version "0.20.0"
-    id("se.patrikerdes.use-latest-versions") version "0.2.3"
 }
 
 setupApplication()
