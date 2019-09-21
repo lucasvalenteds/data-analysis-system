@@ -1,10 +1,9 @@
-package io.lucasvalenteds.batch.report;
+package io.lucasvalenteds.batch.engine;
 
 import io.lucasvalenteds.batch.customer.Customer;
 import io.lucasvalenteds.batch.sale.Sale;
 import io.lucasvalenteds.batch.salesman.Salesman;
 import io.lucasvalenteds.batch.customer.CustomerParser;
-import io.lucasvalenteds.batch.engine.LineParser;
 import io.lucasvalenteds.batch.sale.SalesParser;
 import io.lucasvalenteds.batch.salesman.SalesmanParser;
 import io.reactivex.Observable;
