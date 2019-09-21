@@ -1,11 +1,11 @@
-package io.lucasvalenteds.batch.v2;
+package io.lucasvalenteds.batch.engine;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-class PathConfiguration {
+public class PathConfiguration {
 
     private final Logger logger = LogManager.getLogger(PathConfiguration.class);
 
@@ -14,20 +14,20 @@ class PathConfiguration {
         logger.info("Output folder: " + directoryWithDoneDatFiles());
     }
 
-    Path directoryWithDatFiles() {
+    public Path directoryWithDatFiles() {
         return Paths.get("data", "in");
     }
 
-    Path directoryWithDoneDatFiles() {
+    public Path directoryWithDoneDatFiles() {
         return Paths.get("data", "out");
     }
 
-    Path resolveReportFilename(Path filename) {
+    public Path resolveReportFilename(Path filename) {
         return directoryWithDoneDatFiles()
             .resolve(filename.toString().replaceFirst(".dat", ".done.dat"));
     }
 
-    boolean hasDatExtension(Path path) {
+    public boolean hasDatExtension(Path path) {
         return path.toString().endsWith(".dat");
     }
 }

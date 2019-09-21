@@ -1,5 +1,6 @@
-package io.lucasvalenteds.batch.v2;
+package io.lucasvalenteds.batch.engine;
 
+import io.lucasvalenteds.batch.engine.PathConfiguration;
 import java.nio.file.Path;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
