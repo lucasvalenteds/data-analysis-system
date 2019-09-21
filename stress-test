@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+SAMPLE_FILE=$(cat <<-END
+001ç1234567891234çDiegoç50000
+001ç3245678865434çRenatoç40000.99
+002ç2345675434544345çJose da SilvaçRural
+002ç2345675433444345çEduardo PereiraçRural
+003ç10ç[1-10-100,2-30-2.50,3-40-3.10]çDiego
+003ç08ç[1-34-10,2-33-1.50,3-40-0.10]çRenato
+END
+)
+INPUT_PATH="data/in/"
+INPUT_EXTENSION=".dat"
+OUTPUT_PATH="data/out/"
+OUTPUT_EXTENSION=".done.dat"
+
+run_test () {
+    local delay=$1
+    while true
+    do
+        file_name=$(pwgen 32 1)
+        file_name+=$INPUT_EXTENSION
+
+        echo "Creating $file_name"
+        echo "$SAMPLE_FILE" > "$INPUT_PATH/$file_name"
+
+        sleep $delay
+    done
+}
+
+case $1 in
+    easy)
+        run_test 1
+        ;;
+    normal)
+        run_test 0.5
+        ;;
+    hard)
+        run_test 0.1
+        ;;
+    life)
+        run_test 0
+        ;;
+    clean)
+        rm $INPUT_PATH/*$INPUT_EXTENSION
+        rm $OUTPUT_PATH/*$OUTPUT_EXTENSION
+        ;;
+    *)
+        echo "Missing mode. It should be easy, normal, hard or life"
+        ;;
+esac
