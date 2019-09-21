@@ -6,7 +6,6 @@ version = "0.3.0"
 plugins {
     java
     application
-    id("com.github.johnrengelman.shadow") version "5.1.0"
 }
 
 repositories {
