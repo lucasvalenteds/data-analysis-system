@@ -1,4 +1,4 @@
-package io.lucasvalenteds.batch.data;
+package io.lucasvalenteds.batch.salesman;
 
 import java.util.Objects;
 

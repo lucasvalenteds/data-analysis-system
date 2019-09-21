@@ -1,5 +1,7 @@
-package io.lucasvalenteds.batch.process.mapping;
+package io.lucasvalenteds.batch.salesman;
 
+import io.lucasvalenteds.batch.process.mapping.DataMapperTest;
+import io.lucasvalenteds.batch.salesman.SalesmanMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

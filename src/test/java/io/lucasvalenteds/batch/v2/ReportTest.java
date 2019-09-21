@@ -2,15 +2,15 @@ package io.lucasvalenteds.batch.v2;
 
 import io.lucasvalenteds.batch.customer.Customer;
 import io.lucasvalenteds.batch.data.Sale;
-import io.lucasvalenteds.batch.data.Salesman;
+import io.lucasvalenteds.batch.salesman.Salesman;
 import io.lucasvalenteds.batch.customer.CustomerMapper;
 import io.lucasvalenteds.batch.process.mapping.SalesDataItemMapper;
 import io.lucasvalenteds.batch.process.mapping.SalesMapper;
-import io.lucasvalenteds.batch.process.mapping.SalesmanMapper;
+import io.lucasvalenteds.batch.salesman.SalesmanMapper;
 import io.lucasvalenteds.batch.customer.CustomerParser;
 import io.lucasvalenteds.batch.process.parsing.LineParser;
 import io.lucasvalenteds.batch.process.parsing.SalesParser;
-import io.lucasvalenteds.batch.process.parsing.SalesmanParser;
+import io.lucasvalenteds.batch.salesman.SalesmanParser;
 import java.util.List;
 import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;

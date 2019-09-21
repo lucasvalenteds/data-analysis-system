@@ -2,11 +2,11 @@ package io.lucasvalenteds.batch.v2;
 
 import io.lucasvalenteds.batch.customer.Customer;
 import io.lucasvalenteds.batch.data.Sale;
-import io.lucasvalenteds.batch.data.Salesman;
+import io.lucasvalenteds.batch.salesman.Salesman;
 import io.lucasvalenteds.batch.customer.CustomerParser;
 import io.lucasvalenteds.batch.process.parsing.LineParser;
 import io.lucasvalenteds.batch.process.parsing.SalesParser;
-import io.lucasvalenteds.batch.process.parsing.SalesmanParser;
+import io.lucasvalenteds.batch.salesman.SalesmanParser;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.util.ArrayList;
