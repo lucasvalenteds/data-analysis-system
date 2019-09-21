@@ -1,4 +1,4 @@
-package io.lucasvalenteds.batch.v2;
+package io.lucasvalenteds.batch.engine;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-class InputOutput {
+public class InputOutput {
 
     private final Logger logger = LogManager.getLogger(InputOutput.class);
 
-    Single<List<String>> readFileLines(Path path) {
+    public Single<List<String>> readFileLines(Path path) {
         return Single.create(emitter -> {
             try (var lines = Files.newBufferedReader(path).lines()) {
                 logger.info("onNext.readFileLines: " + path.toString());
@@ -30,7 +30,7 @@ class InputOutput {
         });
     }
 
-    Single<String> writeTextToFile(String report, Path path) {
+    public Single<String> writeTextToFile(String report, Path path) {
         return Single.create(emitter -> {
             try (var buffer = Files.newBufferedWriter(path)) {
                 buffer.write(report);
@@ -43,7 +43,7 @@ class InputOutput {
         });
     }
 
-    Observable<Path> watchNewFiles(Path directoryToWatch) {
+    public Observable<Path> watchNewFiles(Path directoryToWatch) {
         logger.info("Watching " + directoryToWatch.toString());
 
         return Observable.create(emitter -> {

@@ -1,4 +1,4 @@
-package io.lucasvalenteds.batch.v2;
+package io.lucasvalenteds.batch.engine;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-class InputOutputTest {
+public class InputOutputTest {
 
     private final InputOutput manager = new InputOutput();
     private final Path classpath = Path.of("src", "test", "resources");
