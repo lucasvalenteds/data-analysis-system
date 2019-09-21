@@ -28,7 +28,7 @@ dependencies {
 }
 
 configure<ApplicationPluginConvention> {
-    mainClassName = "io.lucasvalenteds.batch.Main"
+    mainClassName = "io.lucasvalenteds.das.Main"
 }
 
 configure<JavaPluginConvention> {
