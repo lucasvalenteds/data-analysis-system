@@ -19,15 +19,14 @@ public class Main {
 
     public static void main(String[] args) {
         var paths = new PathManager();
-        var io = new FileManager();
-        var watcher = new PathWatcher();
+        var io = new InputOutput();
         var report = new Report(Map.ofEntries(
             Map.entry(Salesman.class, new SalesmanParser(new SalesmanMapper())),
             Map.entry(Customer.class, new CustomerParser(new CustomerMapper())),
             Map.entry(Sale.class, new SalesParser(new SalesMapper(new SalesDataItemMapper())))
         ));
 
-        var dispose = watcher.watchNewFiles(paths.directoryWithDatFiles())
+        var dispose = io.watchNewFiles(paths.directoryWithDatFiles())
             .filter(paths::hasDatExtension)
             .flatMapSingle(filename ->
                 io.readFileLines(paths.directoryWithDatFiles().resolve(filename))
