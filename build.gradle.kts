@@ -1,7 +1,7 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 group = "io.lucasvalenteds"
-version = "0.2.1"
+version = "0.3.0"
 
 plugins {
     java
