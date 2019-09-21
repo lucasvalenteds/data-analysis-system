@@ -1,10 +1,7 @@
 package io.lucasvalenteds.batch.salesman;
 
-import io.lucasvalenteds.batch.process.parsing.LineParser;
-import io.lucasvalenteds.batch.process.parsing.LineParserTest;
-import io.lucasvalenteds.batch.salesman.SalesmanMapper;
-import io.lucasvalenteds.batch.salesman.Salesman;
-import io.lucasvalenteds.batch.salesman.SalesmanParser;
+import io.lucasvalenteds.batch.engine.LineParser;
+import io.lucasvalenteds.batch.engine.LineParserTest;
 import io.lucasvalenteds.batch.testing.DatFileFixtures;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;

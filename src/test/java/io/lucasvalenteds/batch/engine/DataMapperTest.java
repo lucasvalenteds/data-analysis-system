@@ -1,4 +1,4 @@
-package io.lucasvalenteds.batch.process.mapping;
+package io.lucasvalenteds.batch.engine;
 
 public class DataMapperTest {
 

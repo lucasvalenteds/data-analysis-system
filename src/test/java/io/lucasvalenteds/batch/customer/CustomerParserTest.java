@@ -1,10 +1,7 @@
 package io.lucasvalenteds.batch.customer;
 
-import io.lucasvalenteds.batch.customer.CustomerMapper;
-import io.lucasvalenteds.batch.customer.Customer;
-import io.lucasvalenteds.batch.customer.CustomerParser;
-import io.lucasvalenteds.batch.process.parsing.LineParser;
-import io.lucasvalenteds.batch.process.parsing.LineParserTest;
+import io.lucasvalenteds.batch.engine.LineParser;
+import io.lucasvalenteds.batch.engine.LineParserTest;
 import io.lucasvalenteds.batch.testing.DatFileFixtures;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;

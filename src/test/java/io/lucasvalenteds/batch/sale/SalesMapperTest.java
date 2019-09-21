@@ -1,7 +1,7 @@
 package io.lucasvalenteds.batch.sale;
 
-import io.lucasvalenteds.batch.process.mapping.DataMapper;
-import io.lucasvalenteds.batch.process.mapping.DataMapperTest;
+import io.lucasvalenteds.batch.engine.DataMapper;
+import io.lucasvalenteds.batch.engine.DataMapperTest;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

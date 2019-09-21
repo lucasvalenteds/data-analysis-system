@@ -1,6 +1,7 @@
-package io.lucasvalenteds.batch.process.parsing;
+package io.lucasvalenteds.batch.engine;
 
-import io.lucasvalenteds.batch.process.mapping.DataMapper;
+import io.lucasvalenteds.batch.engine.DataMapper;
+import io.lucasvalenteds.batch.engine.LineParser;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

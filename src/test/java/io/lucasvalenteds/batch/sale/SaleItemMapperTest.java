@@ -1,7 +1,6 @@
 package io.lucasvalenteds.batch.sale;
 
-import io.lucasvalenteds.batch.process.mapping.DataMapperTest;
-import io.lucasvalenteds.batch.sale.SalesDataItemMapper;
+import io.lucasvalenteds.batch.engine.DataMapperTest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

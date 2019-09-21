@@ -1,7 +1,7 @@
 package io.lucasvalenteds.batch.sale;
 
-import io.lucasvalenteds.batch.process.parsing.LineParser;
-import io.lucasvalenteds.batch.process.parsing.LineParserTest;
+import io.lucasvalenteds.batch.engine.LineParser;
+import io.lucasvalenteds.batch.engine.LineParserTest;
 import io.lucasvalenteds.batch.testing.DatFileFixtures;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

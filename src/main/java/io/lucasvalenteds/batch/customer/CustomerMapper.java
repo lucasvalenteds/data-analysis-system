@@ -1,8 +1,6 @@
 package io.lucasvalenteds.batch.customer;
 
-import io.lucasvalenteds.batch.customer.Customer;
-
-import io.lucasvalenteds.batch.process.mapping.DataMapper;
+import io.lucasvalenteds.batch.engine.DataMapper;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;

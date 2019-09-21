@@ -1,6 +1,5 @@
-package io.lucasvalenteds.batch.process.parsing;
+package io.lucasvalenteds.batch.engine;
 
-import io.lucasvalenteds.batch.process.mapping.DataMapper;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
