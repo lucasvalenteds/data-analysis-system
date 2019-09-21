@@ -3,37 +3,28 @@ package io.lucasvalenteds.das.sale;
 import io.lucasvalenteds.das.engine.DataMapper;
 import io.lucasvalenteds.das.engine.DataMapperTest;
 import java.util.List;
-import org.junit.jupiter.api.DisplayName;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 
 class SalesMapperTest extends DataMapperTest {
 
     private final DataMapper<List<SaleItem>> itemsMapper = new SalesDataItemMapper();
 
-    @DisplayName("It can convert a valid String to an Object")
     @Test
     void testConvertFromStringToObject() {
         var mapper = new SalesMapper(itemsMapper);
 
-        var customer = mapper.mapStringToObject("003ç10ç[1-10-100,2-30-2.50,3-40-3.10]çDiego".split(TOKEN));
+        var sale = mapper.mapStringToObject("003ç10ç[1-10-100,2-30-2.50,3-40-3.10]çDiego".split(TOKEN));
 
-        if (customer.isPresent()) {
-            var instance = customer.get();
-            assertThat(instance.getId()).isEqualTo("003");
-            assertThat(instance.getCode()).isEqualTo("10");
-            assertThat(instance.getSalesmanName()).isEqualTo("Diego");
-            assertThat(instance.getItemsSold())
-                .hasSize(3)
-                .containsAll(List.of(
-                    new SaleItem("1", 10, 100),
-                    new SaleItem("2", 30, 2.50),
-                    new SaleItem("3", 40, 3.10)
-                ));
-        } else {
-            fail("The object should be available through Optional.");
-        }
+        assertTrue(sale.isPresent());
+        assertEquals("003", sale.get().getId());
+        assertEquals("10", sale.get().getCode());
+        assertEquals("Diego", sale.get().getSalesmanName());
+
+        assertEquals(3, sale.get().getItemsSold().size());
+        assertEquals(new SaleItem("1", 10, 100), sale.get().getItemsSold().get(0));
+        assertEquals(new SaleItem("2", 30, 2.50), sale.get().getItemsSold().get(1));
+        assertEquals(new SaleItem("3", 40, 3.10), sale.get().getItemsSold().get(2));
     }
 }

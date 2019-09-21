@@ -1,28 +1,19 @@
 package io.lucasvalenteds.das.sale;
 
 import io.lucasvalenteds.das.engine.DataMapperTest;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 
 class SaleItemMapperTest extends DataMapperTest {
 
-    @DisplayName("It can convert a valid String to an Object")
     @Test
     void testConvertFromStringToObject() {
         var mapper = new SalesDataItemMapper();
 
-        var customer = mapper.mapStringToObject(new String[]{"[1-10-100,2-30-2.50,3-40-3.10]"});
-        assertThat(customer.isPresent()).isTrue();
+        var saleItems = mapper.mapStringToObject(new String[]{"[1-10-100,2-30-2.50,3-40-3.10]"});
 
-        if (customer.isPresent()) {
-            var instance = customer.get();
-            Assertions.assertThat(instance).hasSize(3);
-        } else {
-            fail("The object should be available through Optional.");
-        }
+        assertTrue(saleItems.isPresent());
+        assertEquals(3, saleItems.get().size());
     }
 }
