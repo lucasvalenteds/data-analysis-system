@@ -1,4 +1,4 @@
-package io.lucasvalenteds.das.v2;
+package io.lucasvalenteds.das;
 
 import io.lucasvalenteds.das.customer.Customer;
 import io.lucasvalenteds.das.engine.InputOutput;
