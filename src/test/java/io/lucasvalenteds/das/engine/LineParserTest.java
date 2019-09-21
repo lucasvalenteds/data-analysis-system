@@ -1,10 +1,8 @@
 package io.lucasvalenteds.das.engine;
 
 import java.util.Optional;
-import org.junit.jupiter.api.DisplayName;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class LineParserTest {
 
@@ -16,17 +14,15 @@ public class LineParserTest {
         }
     };
 
-    @DisplayName("The default token is cedilla")
     @Test
-    void testDefaultToken() {
-        assertThat(lineParser.getToken()).isEqualTo("ç");
+    void testDefaultTokenIsCedilla() {
+        assertEquals("ç", lineParser.getToken());
     }
 
-    @DisplayName("It accepts a token to split the data")
     @Test
-    void testCustomToken() {
+    void testCustomTokenCanBeSet() {
         lineParser.setToken(";");
 
-        assertThat(lineParser.getToken()).isEqualTo(";");
+        assertEquals(";", lineParser.getToken());
     }
 }
