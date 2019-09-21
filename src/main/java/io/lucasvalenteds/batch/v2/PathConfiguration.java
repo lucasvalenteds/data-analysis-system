@@ -5,11 +5,11 @@ import java.nio.file.Paths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-class PathManager {
+class PathConfiguration {
 
-    private final Logger logger = LogManager.getLogger(PathManager.class);
+    private final Logger logger = LogManager.getLogger(PathConfiguration.class);
 
-    public PathManager() {
+    public PathConfiguration() {
         logger.info("Input folder: " + directoryWithDatFiles());
         logger.info("Output folder: " + directoryWithDoneDatFiles());
     }

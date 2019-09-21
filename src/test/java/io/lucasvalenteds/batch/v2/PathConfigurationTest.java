@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
-class PathManagerTest {
+class PathConfigurationTest {
 
-    private final PathManager manager = new PathManager();
+    private final PathConfiguration manager = new PathConfiguration();
 
     @Test
     void testResolveReportName() {

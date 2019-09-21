@@ -20,7 +20,7 @@ public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
-        var paths = new PathManager();
+        var paths = new PathConfiguration();
         var io = new InputOutput();
         var report = new Report(Map.ofEntries(
             Map.entry(Salesman.class, new SalesmanParser(new SalesmanMapper())),
