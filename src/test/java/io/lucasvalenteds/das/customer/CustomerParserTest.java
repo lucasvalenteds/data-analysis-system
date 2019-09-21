@@ -3,32 +3,24 @@ package io.lucasvalenteds.das.customer;
 import io.lucasvalenteds.das.engine.LineParser;
 import io.lucasvalenteds.das.engine.LineParserTest;
 import io.lucasvalenteds.das.testing.DatFileFixtures;
-import java.util.List;
-import org.junit.jupiter.api.DisplayName;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class CustomerParserTest extends LineParserTest {
 
     private final LineParser<Customer> fileParser = new CustomerParser(new CustomerMapper());
 
-    @DisplayName("It can find a costumer data in a line")
     @Test
     void testItCanParseCustomer() {
         var customers = fileParser.parseLines(DatFileFixtures.validInputFileContent);
 
-        assertThat(customers)
-            .hasSize(2)
-            .containsAll(List.of(
-                new Customer("002", "2345675434544345", "Jose da Silva", "Rural"),
-                new Customer("002", "2345675433444345", "Eduardo Pereira", "Rural")
-            ));
+        assertEquals(2, customers.size());
+        assertEquals(new Customer("002", "2345675434544345", "Jose da Silva", "Rural"), customers.get(0));
+        assertEquals(new Customer("002", "2345675433444345", "Eduardo Pereira", "Rural"), customers.get(1));
     }
 
-    @DisplayName("The customer identifier is 002")
     @Test
     void testIdentifier() {
-        assertThat(fileParser.getDataClassIdentifier()).isEqualTo("002");
+        assertEquals("002", fileParser.getDataClassIdentifier());
     }
 }
