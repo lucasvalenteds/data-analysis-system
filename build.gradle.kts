@@ -14,16 +14,16 @@ repositories {
 }
 
 dependencies {
-    implementation("org.apache.logging.log4j", "log4j-api", extra["version.log4j"].toString())
-    implementation("org.apache.logging.log4j", "log4j-core", extra["version.log4j"].toString())
-    implementation("org.javatuples", "javatuples", extra["version.javaTuples"].toString())
-    implementation("com.nurkiewicz.asyncretry", "asyncretry", extra["version.asyncRetry"].toString())
+    implementation("org.apache.logging.log4j", "log4j-api", properties["version.log4j"].toString())
+    implementation("org.apache.logging.log4j", "log4j-core", properties["version.log4j"].toString())
+    implementation("org.javatuples", "javatuples", properties["version.javaTuples"].toString())
+    implementation("com.nurkiewicz.asyncretry", "asyncretry", properties["version.asyncRetry"].toString())
 
-    testImplementation("org.mockito", "mockito-core", extra["version.mockito"].toString())
-    testImplementation("org.assertj", "assertj-core", extra["version.assertJ"].toString())
-    testImplementation("org.junit.jupiter", "junit-jupiter-api", extra["version.junit"].toString())
-    testImplementation("org.junit.jupiter", "junit-jupiter-params", extra["version.junit"].toString())
-    testRuntime("org.junit.jupiter", "junit-jupiter-engine", extra["version.junit"].toString())
+    testImplementation("org.mockito", "mockito-core", properties["version.mockito"].toString())
+    testImplementation("org.assertj", "assertj-core", properties["version.assertJ"].toString())
+    testImplementation("org.junit.jupiter", "junit-jupiter-api", properties["version.junit"].toString())
+    testImplementation("org.junit.jupiter", "junit-jupiter-params", properties["version.junit"].toString())
+    testRuntime("org.junit.jupiter", "junit-jupiter-engine", properties["version.junit"].toString())
 }
 
 configure<ApplicationPluginConvention> {
