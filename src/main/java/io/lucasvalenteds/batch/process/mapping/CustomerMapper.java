@@ -1,18 +1,18 @@
 package io.lucasvalenteds.batch.process.mapping;
 
-import io.lucasvalenteds.batch.data.CustomerData;
+import io.lucasvalenteds.batch.data.Customer;
 
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class CustomerMapper implements DataMapper<CustomerData> {
+public class CustomerMapper implements DataMapper<Customer> {
 
     @Override
-    public Optional<CustomerData> mapStringToObject(String[] fileLines) {
+    public Optional<Customer> mapStringToObject(String[] fileLines) {
         return Stream.of(Arrays.asList(fileLines))
                 .map(tokens -> Optional
-                        .of(new CustomerData(tokens.get(0), tokens.get(1), tokens.get(2), tokens.get(3)))
+                        .of(new Customer(tokens.get(0), tokens.get(1), tokens.get(2), tokens.get(3)))
                         .orElseThrow(IllegalArgumentException::new))
                 .findFirst();
     }

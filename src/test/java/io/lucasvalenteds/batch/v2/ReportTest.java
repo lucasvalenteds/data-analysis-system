@@ -1,8 +1,8 @@
 package io.lucasvalenteds.batch.v2;
 
-import io.lucasvalenteds.batch.data.CustomerData;
-import io.lucasvalenteds.batch.data.SalesData;
-import io.lucasvalenteds.batch.data.SalesmanData;
+import io.lucasvalenteds.batch.data.Customer;
+import io.lucasvalenteds.batch.data.Sale;
+import io.lucasvalenteds.batch.data.Salesman;
 import io.lucasvalenteds.batch.process.mapping.CustomerMapper;
 import io.lucasvalenteds.batch.process.mapping.SalesDataItemMapper;
 import io.lucasvalenteds.batch.process.mapping.SalesMapper;
@@ -22,9 +22,9 @@ import org.junit.jupiter.api.Test;
 class ReportTest {
 
     private final Map<Class, LineParser> parsers = Map.ofEntries(
-        Map.entry(SalesmanData.class, new SalesmanParser(new SalesmanMapper())),
-        Map.entry(CustomerData.class, new CustomerParser(new CustomerMapper())),
-        Map.entry(SalesData.class, new SalesParser(new SalesMapper(new SalesDataItemMapper())))
+        Map.entry(Salesman.class, new SalesmanParser(new SalesmanMapper())),
+        Map.entry(Customer.class, new CustomerParser(new CustomerMapper())),
+        Map.entry(Sale.class, new SalesParser(new SalesMapper(new SalesDataItemMapper())))
     );
     private final List<String> fixtures = List.of(
         "001ç1234567891234çDiegoç50000",

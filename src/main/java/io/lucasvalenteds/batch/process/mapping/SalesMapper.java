@@ -1,26 +1,26 @@
 package io.lucasvalenteds.batch.process.mapping;
 
-import io.lucasvalenteds.batch.data.SalesData;
-import io.lucasvalenteds.batch.data.SalesDataItem;
+import io.lucasvalenteds.batch.data.Sale;
+import io.lucasvalenteds.batch.data.SaleItem;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class SalesMapper implements DataMapper<SalesData> {
+public class SalesMapper implements DataMapper<Sale> {
 
-    private final DataMapper<List<SalesDataItem>> itemsMapper;
+    private final DataMapper<List<SaleItem>> itemsMapper;
 
-    public SalesMapper(DataMapper<List<SalesDataItem>> itemsMapper) {
+    public SalesMapper(DataMapper<List<SaleItem>> itemsMapper) {
         this.itemsMapper = Optional.of(itemsMapper).orElse(new SalesDataItemMapper());
     }
 
     @Override
-    public Optional<SalesData> mapStringToObject(String[] fileLines) {
+    public Optional<Sale> mapStringToObject(String[] fileLines) {
         return Stream.of(Arrays.asList(fileLines))
                 .map(tokens -> Optional
-                        .of(new SalesData(
+                        .of(new Sale(
                                 tokens.get(0),
                                 tokens.get(1),
                                 itemsMapper.mapStringToObject(new String[]{tokens.get(2)}).orElseGet(List::of),

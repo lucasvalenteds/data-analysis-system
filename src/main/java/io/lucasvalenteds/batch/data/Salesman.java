@@ -2,14 +2,14 @@ package io.lucasvalenteds.batch.data;
 
 import java.util.Objects;
 
-public class SalesmanData {
+public class Salesman {
 
     private final String id;
     private final String cpf;
     private final String name;
     private final double salary;
 
-    public SalesmanData(String id, String cpf, String name, double salary) {
+    public Salesman(String id, String cpf, String name, double salary) {
         this.id = id;
         this.cpf = cpf;
         this.name = name;
@@ -36,7 +36,7 @@ public class SalesmanData {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SalesmanData that = (SalesmanData) o;
+        Salesman that = (Salesman) o;
         return Double.compare(that.salary, salary) == 0 &&
                 Objects.equals(id, that.id) &&
                 Objects.equals(cpf, that.cpf) &&

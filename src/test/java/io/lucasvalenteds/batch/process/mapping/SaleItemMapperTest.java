@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
-class SalesDataItemMapperTest extends DataMapperTest {
+class SaleItemMapperTest extends DataMapperTest {
 
     @DisplayName("It can convert a valid String to an Object")
     @Test

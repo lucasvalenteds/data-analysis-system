@@ -1,8 +1,8 @@
 package io.lucasvalenteds.batch.v2;
 
-import io.lucasvalenteds.batch.data.CustomerData;
-import io.lucasvalenteds.batch.data.SalesData;
-import io.lucasvalenteds.batch.data.SalesmanData;
+import io.lucasvalenteds.batch.data.Customer;
+import io.lucasvalenteds.batch.data.Sale;
+import io.lucasvalenteds.batch.data.Salesman;
 import io.lucasvalenteds.batch.process.parsing.CustomerParser;
 import io.lucasvalenteds.batch.process.parsing.LineParser;
 import io.lucasvalenteds.batch.process.parsing.SalesParser;
@@ -22,24 +22,24 @@ class Report {
 
     private final Logger logger = LogManager.getLogger(Report.class);
 
-    private final List<CustomerData> customers = new ArrayList<>();
-    private final List<SalesmanData> salesmen = new ArrayList<>();
-    private final List<SalesData> sales = new ArrayList<>();
+    private final List<Customer> customers = new ArrayList<>();
+    private final List<Salesman> salesmen = new ArrayList<>();
+    private final List<Sale> sales = new ArrayList<>();
     private final Map<Class, LineParser> parsers;
 
     Report(Map<Class, LineParser> parsers) {
         this.parsers = parsers;
     }
 
-    public List<CustomerData> getCustomers() {
+    public List<Customer> getCustomers() {
         return customers;
     }
 
-    public List<SalesData> getSales() {
+    public List<Sale> getSales() {
         return sales;
     }
 
-    public List<SalesmanData> getSalesmen() {
+    public List<Salesman> getSalesmen() {
         return salesmen;
     }
 
@@ -48,9 +48,9 @@ class Report {
         salesmen.clear();
         sales.clear();
 
-        customers.addAll(((CustomerParser) parsers.get(CustomerData.class)).parseLines(lines));
-        salesmen.addAll(((SalesmanParser) parsers.get(SalesmanData.class)).parseLines(lines));
-        sales.addAll(((SalesParser) parsers.get(SalesData.class)).parseLines(lines));
+        customers.addAll(((CustomerParser) parsers.get(Customer.class)).parseLines(lines));
+        salesmen.addAll(((SalesmanParser) parsers.get(Salesman.class)).parseLines(lines));
+        sales.addAll(((SalesParser) parsers.get(Sale.class)).parseLines(lines));
     }
 
     int getAmountOfCustomers() {
@@ -87,7 +87,7 @@ class Report {
             })
             .max(Comparator.comparing(Pair::getValue1))
             .map(Pair::getValue0)
-            .map(SalesmanData::getName);
+            .map(Salesman::getName);
     }
 
     Single<String> export() {

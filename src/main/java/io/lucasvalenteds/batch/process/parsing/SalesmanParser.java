@@ -1,11 +1,11 @@
 package io.lucasvalenteds.batch.process.parsing;
 
 import io.lucasvalenteds.batch.process.mapping.DataMapper;
-import io.lucasvalenteds.batch.data.SalesmanData;
+import io.lucasvalenteds.batch.data.Salesman;
 
-public class SalesmanParser extends LineParser<SalesmanData> {
+public class SalesmanParser extends LineParser<Salesman> {
 
-    public SalesmanParser(DataMapper<SalesmanData> mapper) {
+    public SalesmanParser(DataMapper<Salesman> mapper) {
         super(mapper);
     }
 
