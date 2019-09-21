@@ -1,7 +1,7 @@
-package io.lucasvalenteds.batch.process.parsing;
+package io.lucasvalenteds.batch.sale;
 
 import io.lucasvalenteds.batch.process.mapping.DataMapper;
-import io.lucasvalenteds.batch.data.Sale;
+import io.lucasvalenteds.batch.process.parsing.LineParser;
 
 public class SalesParser extends LineParser<Sale> {
 

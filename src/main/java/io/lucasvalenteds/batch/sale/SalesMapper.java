@@ -1,8 +1,6 @@
-package io.lucasvalenteds.batch.process.mapping;
+package io.lucasvalenteds.batch.sale;
 
-import io.lucasvalenteds.batch.data.Sale;
-import io.lucasvalenteds.batch.data.SaleItem;
-
+import io.lucasvalenteds.batch.process.mapping.DataMapper;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
