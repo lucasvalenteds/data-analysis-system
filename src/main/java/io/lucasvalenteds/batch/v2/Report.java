@@ -31,6 +31,18 @@ class Report {
         this.parsers = parsers;
     }
 
+    public List<CustomerData> getCustomers() {
+        return customers;
+    }
+
+    public List<SalesData> getSales() {
+        return sales;
+    }
+
+    public List<SalesmanData> getSalesmen() {
+        return salesmen;
+    }
+
     void processLines(List<String> lines) {
         customers.clear();
         salesmen.clear();
@@ -80,8 +92,8 @@ class Report {
 
     Single<String> export() {
         return Observable.just(
-            "* Amount of clients in the production.input file: " + getAmountOfCustomers() + "\n",
-            "* Amount of salesman in the production.input file: " + getAmountOfSalesmen() + "\n",
+            "* Amount of clients: " + getAmountOfCustomers() + "\n",
+            "* Amount of salesman: " + getAmountOfSalesmen() + "\n",
             "* ID of the most expensive sale: " + getMostExpensiveSaleId().orElse("") + "\n",
             "* Worst salesman ever: " + getLeastProductiveSalesman().orElse("")
         )
