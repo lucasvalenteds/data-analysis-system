@@ -28,9 +28,7 @@ class InputOutputTest {
     void testItFailsToReadFileThatDoesNotExist() {
         var filePath = Path.of("src", "test", "resources", "not-sample.dat");
 
-        assertThrows(Exception.class, () -> {
-            manager.readFileLines(filePath).subscribe();
-        });
+        assertThrows(Exception.class, () -> manager.readFileLines(filePath).subscribe());
     }
 
     @Test

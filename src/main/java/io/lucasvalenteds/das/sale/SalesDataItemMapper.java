@@ -24,7 +24,7 @@ public class SalesDataItemMapper implements DataMapper<List<SaleItem>> {
                         .map(item -> new SaleItem(
                                 item.get(0),
                                 Integer.parseInt(item.get(1)),
-                                Double.valueOf(item.get(2))))
+                                Double.parseDouble(item.get(2))))
                         .collect(Collectors.toList()))
                 .findFirst();
     }
