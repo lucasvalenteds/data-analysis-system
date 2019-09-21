@@ -14,6 +14,7 @@ repositories {
 }
 
 dependencies {
+    implementation("io.reactivex.rxjava3", "rxjava", properties["version.rxjava"].toString())
     implementation("org.apache.logging.log4j", "log4j-api", properties["version.log4j"].toString())
     implementation("org.apache.logging.log4j", "log4j-core", properties["version.log4j"].toString())
     implementation("org.javatuples", "javatuples", properties["version.javaTuples"].toString())
