@@ -1,4 +1,4 @@
-package io.lucasvalenteds.batch.v2;
+package io.lucasvalenteds.batch.report;
 
 import io.lucasvalenteds.batch.customer.Customer;
 import io.lucasvalenteds.batch.sale.Sale;
@@ -18,7 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.javatuples.Pair;
 
-class Report {
+public class Report {
 
     private final Logger logger = LogManager.getLogger(Report.class);
 
@@ -27,7 +27,7 @@ class Report {
     private final List<Sale> sales = new ArrayList<>();
     private final Map<Class, LineParser> parsers;
 
-    Report(Map<Class, LineParser> parsers) {
+    public Report(Map<Class, LineParser> parsers) {
         this.parsers = parsers;
     }
 
@@ -43,7 +43,7 @@ class Report {
         return salesmen;
     }
 
-    void processLines(List<String> lines) {
+    public void processLines(List<String> lines) {
         customers.clear();
         salesmen.clear();
         sales.clear();
@@ -53,15 +53,15 @@ class Report {
         sales.addAll(((SalesParser) parsers.get(Sale.class)).parseLines(lines));
     }
 
-    int getAmountOfCustomers() {
+    public int getAmountOfCustomers() {
         return customers.size();
     }
 
-    int getAmountOfSalesmen() {
+    public int getAmountOfSalesmen() {
         return salesmen.size();
     }
 
-    Optional<String> getMostExpensiveSaleId() {
+    public Optional<String> getMostExpensiveSaleId() {
         return sales.stream()
             .map(sale -> {
                 double finalPriceOfThisSale = sale.getItemsSold().stream()
@@ -74,7 +74,7 @@ class Report {
             .map(Pair::getValue0);
     }
 
-    Optional<String> getLeastProductiveSalesman() {
+    public Optional<String> getLeastProductiveSalesman() {
         return salesmen.stream()
             .map(salesman -> {
                 double totalEarnedByThisSalesman = sales.stream()
@@ -90,7 +90,7 @@ class Report {
             .map(Salesman::getName);
     }
 
-    Single<String> export() {
+    public Single<String> export() {
         return Observable.just(
             "* Amount of clients: " + getAmountOfCustomers() + "\n",
             "* Amount of salesman: " + getAmountOfSalesmen() + "\n",
@@ -101,7 +101,7 @@ class Report {
             .map(StringBuilder::toString);
     }
 
-    Single<String> generate(List<String> lines) {
+    public Single<String> generate(List<String> lines) {
         logger.info("Report.generate: " + lines.size() + " records processed.");
         processLines(lines);
         return export();

@@ -1,6 +1,7 @@
-package io.lucasvalenteds.batch.v2;
+package io.lucasvalenteds.batch.report;
 
 import io.lucasvalenteds.batch.customer.Customer;
+import io.lucasvalenteds.batch.report.Report;
 import io.lucasvalenteds.batch.sale.Sale;
 import io.lucasvalenteds.batch.salesman.Salesman;
 import io.lucasvalenteds.batch.customer.CustomerMapper;
