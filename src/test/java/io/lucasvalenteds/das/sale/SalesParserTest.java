@@ -5,7 +5,6 @@ import io.lucasvalenteds.das.engine.LineParserTest;
 import io.lucasvalenteds.das.testing.DatFileFixtures;
 import java.util.List;
 import java.util.stream.Collectors;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import org.junit.jupiter.api.Test;
@@ -26,6 +25,6 @@ class SalesParserTest extends LineParserTest {
 
     @Test
     void testIdentifier() {
-        assertThat(fileParser.getDataClassIdentifier()).isEqualTo("003");
+        assertEquals("003", fileParser.getDataClassIdentifier());
     }
 }
