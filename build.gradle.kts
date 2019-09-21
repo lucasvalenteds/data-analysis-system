@@ -17,14 +17,8 @@ dependencies {
     implementation("io.reactivex.rxjava3", "rxjava", properties["version.rxjava"].toString())
     implementation("org.apache.logging.log4j", "log4j-api", properties["version.log4j"].toString())
     implementation("org.apache.logging.log4j", "log4j-core", properties["version.log4j"].toString())
-    implementation("org.javatuples", "javatuples", properties["version.javaTuples"].toString())
-    implementation("com.nurkiewicz.asyncretry", "asyncretry", properties["version.asyncRetry"].toString())
-
-    testImplementation("org.mockito", "mockito-core", properties["version.mockito"].toString())
-    testImplementation("org.assertj", "assertj-core", properties["version.assertJ"].toString())
-    testImplementation("org.junit.jupiter", "junit-jupiter-api", properties["version.junit"].toString())
-    testImplementation("org.junit.jupiter", "junit-jupiter-params", properties["version.junit"].toString())
-    testRuntime("org.junit.jupiter", "junit-jupiter-engine", properties["version.junit"].toString())
+    implementation("org.javatuples", "javatuples", properties["version.javatuples"].toString())
+    testImplementation("org.junit.jupiter", "junit-jupiter", properties["version.junit"].toString())
 }
 
 configure<ApplicationPluginConvention> {
