@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LineParserTest {
+public class LineParserTest {
 
     private final DataMapper<String> mapper = lines -> Optional.of(lines[0]);
     private final LineParser<String> lineParser = new LineParser<>(mapper) {

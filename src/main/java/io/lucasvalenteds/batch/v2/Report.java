@@ -1,9 +1,9 @@
 package io.lucasvalenteds.batch.v2;
 
-import io.lucasvalenteds.batch.data.Customer;
+import io.lucasvalenteds.batch.customer.Customer;
 import io.lucasvalenteds.batch.data.Sale;
 import io.lucasvalenteds.batch.data.Salesman;
-import io.lucasvalenteds.batch.process.parsing.CustomerParser;
+import io.lucasvalenteds.batch.customer.CustomerParser;
 import io.lucasvalenteds.batch.process.parsing.LineParser;
 import io.lucasvalenteds.batch.process.parsing.SalesParser;
 import io.lucasvalenteds.batch.process.parsing.SalesmanParser;

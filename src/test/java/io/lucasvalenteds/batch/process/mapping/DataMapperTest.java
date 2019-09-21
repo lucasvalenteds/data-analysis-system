@@ -1,6 +1,6 @@
 package io.lucasvalenteds.batch.process.mapping;
 
-class DataMapperTest {
+public class DataMapperTest {
 
-    static final String TOKEN = "ç";
+    public static final String TOKEN = "ç";
 }
