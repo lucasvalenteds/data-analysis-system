@@ -4,30 +4,39 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.javatuples.Pair;
 
 public class PathConfiguration {
 
-    private final Logger logger = LogManager.getLogger(PathConfiguration.class);
+    private static final Logger logger = LogManager.getLogger(PathConfiguration.class);
 
-    public PathConfiguration() {
-        logger.info("Input folder: " + directoryWithDatFiles());
-        logger.info("Output folder: " + directoryWithDoneDatFiles());
+    private final Path inputFolder;
+    private final Path outputFolder;
+    private final String inputExtension;
+    private final String outputExtension;
+
+    public PathConfiguration(Pair<String, String> input, Pair<String, String> output) {
+        this.inputFolder = Paths.get(input.getValue0());
+        this.outputFolder = Paths.get(output.getValue0());
+        this.inputExtension = input.getValue1();
+        this.outputExtension = output.getValue1();
+        logger.info("Expecting {} files at {}", inputExtension, inputFolder);
+        logger.info("Exporting {} files to {}", outputExtension, outputFolder);
     }
 
-    public Path directoryWithDatFiles() {
-        return Paths.get("data", "in");
+    public Path inputFolder() {
+        return inputFolder;
     }
 
-    public Path directoryWithDoneDatFiles() {
-        return Paths.get("data", "out");
+    public Path outputFolder() {
+        return outputFolder;
     }
 
     public Path resolveReportFilename(Path filename) {
-        return directoryWithDoneDatFiles()
-            .resolve(filename.toString().replaceFirst(".dat", ".done.dat"));
+        return outputFolder().resolve(filename.toString().replaceFirst(inputExtension, outputExtension));
     }
 
-    public boolean hasDatExtension(Path path) {
-        return path.toString().endsWith(".dat");
+    public boolean hasInputExtension(Path path) {
+        return path.toString().endsWith(inputExtension);
     }
 }

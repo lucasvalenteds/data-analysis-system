@@ -16,12 +16,16 @@ import io.lucasvalenteds.das.salesman.SalesmanParser;
 import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.javatuples.Pair;
 
 class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
-        var paths = new PathConfiguration();
+        var paths = new PathConfiguration(
+            new Pair<>("data/in", ".dat"),
+            new Pair<>("data/out", ".done.dat")
+        );
         var io = new InputOutput();
         var report = new Report(Map.ofEntries(
             Map.entry(Salesman.class, new SalesmanParser(new SalesmanMapper())),
@@ -29,10 +33,10 @@ class Main {
             Map.entry(Sale.class, new SalesParser(new SalesMapper(new SalesDataItemMapper())))
         ));
 
-        var dispose = io.watchNewFiles(paths.directoryWithDatFiles())
-            .filter(paths::hasDatExtension)
+        var dispose = io.watchNewFiles(paths.inputFolder())
+            .filter(paths::hasInputExtension)
             .flatMapSingle(filename ->
-                io.readFileLines(paths.directoryWithDatFiles().resolve(filename))
+                io.readFileLines(paths.inputFolder().resolve(filename))
                     .flatMap(report::generate)
                     .flatMap(text -> io.writeTextToFile(text, paths.resolveReportFilename(filename.getFileName()))))
             .doOnError(logger::error)

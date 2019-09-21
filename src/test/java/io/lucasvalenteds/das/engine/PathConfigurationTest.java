@@ -1,13 +1,17 @@
 package io.lucasvalenteds.das.engine;
 
 import java.nio.file.Path;
+import org.javatuples.Pair;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 class PathConfigurationTest {
 
-    private final PathConfiguration manager = new PathConfiguration();
+    private final PathConfiguration manager = new PathConfiguration(
+        new Pair<>("data/in", ".dat"),
+        new Pair<>("data/out", ".done.dat")
+    );
 
     @Test
     void testResolveReportName() {
@@ -20,9 +24,9 @@ class PathConfigurationTest {
 
     @Test
     void testHasDatExtension() {
-        assertTrue(manager.hasDatExtension(Path.of("bar.dat")));
-        assertFalse(manager.hasDatExtension(Path.of("bar.txt")));
-        assertFalse(manager.hasDatExtension(Path.of("bar.dAt")));
-        assertFalse(manager.hasDatExtension(Path.of("bar.dat.not")));
+        assertTrue(manager.hasInputExtension(Path.of("bar.dat")));
+        assertFalse(manager.hasInputExtension(Path.of("bar.txt")));
+        assertFalse(manager.hasInputExtension(Path.of("bar.dAt")));
+        assertFalse(manager.hasInputExtension(Path.of("bar.dat.not")));
     }
 }
