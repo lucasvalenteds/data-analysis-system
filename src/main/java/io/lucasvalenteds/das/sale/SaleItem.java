@@ -32,13 +32,12 @@ public class SaleItem {
         if (o == null || getClass() != o.getClass()) return false;
         SaleItem that = (SaleItem) o;
         return quantity == that.quantity &&
-                Double.compare(that.price, price) == 0 &&
-                Objects.equals(id, that.id);
+            Double.compare(that.price, price) == 0 &&
+            Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, quantity, price);
     }
 }

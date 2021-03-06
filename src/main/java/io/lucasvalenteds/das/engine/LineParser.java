@@ -9,7 +9,7 @@ public abstract class LineParser<T> {
     private final DataMapper<T> mapper;
     private String token;
 
-    public LineParser(DataMapper<T> mapper) {
+    protected LineParser(DataMapper<T> mapper) {
         this.mapper = mapper;
     }
 

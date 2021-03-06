@@ -2,6 +2,7 @@ package io.lucasvalenteds.das.engine;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,6 +12,7 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,10 +23,10 @@ public class InputOutput {
     public Single<List<String>> readFileLines(Path path) {
         return Single.create(emitter -> {
             try (var lines = Files.newBufferedReader(path).lines()) {
-                logger.info("onNext.readFileLines: " + path.toString());
+                logger.info("onNext.readFileLines: {}", path);
                 emitter.onSuccess(lines.collect(Collectors.toList()));
             } catch (IOException exception) {
-                logger.error("onError.readFileLines: " + exception);
+                logger.error("onError.readFileLines", exception);
                 emitter.onError(exception);
             }
         });
@@ -34,17 +36,17 @@ public class InputOutput {
         return Single.create(emitter -> {
             try (var buffer = Files.newBufferedWriter(path)) {
                 buffer.write(report);
-                logger.info("onNext.writeTextToFile: " + path.toString());
+                logger.info("onNext.writeTextToFile: {}", path);
                 emitter.onSuccess(report);
             } catch (IOException exception) {
-                logger.error("onError.writeTextToFile: " + exception);
+                logger.error("onError.writeTextToFile", exception);
                 emitter.onError(exception);
             }
         });
     }
 
     public Observable<Path> watchNewFiles(Path directoryToWatch) {
-        logger.info("Watching " + directoryToWatch.toString());
+        logger.info("Watching {}", directoryToWatch);
 
         return Observable.create(emitter -> {
             try (WatchService watcher = directoryToWatch.getFileSystem().newWatchService()) {
@@ -56,8 +58,10 @@ public class InputOutput {
                         .map(WatchEvent::context)
                         .map(Object::toString)
                         .map(Path::of)
-                        .peek(path -> logger.info("onNext.watchNewFiles: " + path.toString()))
-                        .forEach(emitter::onNext);
+                        .forEach(path -> {
+                            logger.info("onNext.watchNewFiles: {}", path);
+                            emitter.onNext(path);
+                        });
                 } while (key.reset() && !emitter.isDisposed());
             } catch (IOException | InterruptedException exception) {
                 logger.error("onError.watchNewFiles: ", exception);

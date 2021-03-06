@@ -12,9 +12,9 @@ public class SalesDataItemMapper implements DataMapper<List<SaleItem>> {
     public Optional<List<SaleItem>> mapStringToObject(String[] fileLines) {
         return Stream.of(fileLines)
                 .map(line -> line
-                        .replaceAll("\\[", "")
-                        .replaceAll("]", "")
-                        .replaceAll(" ", "")
+                        .replace("[", "")
+                        .replace("]", "")
+                        .replace(" ", "")
                         .split(","))
                 .map(Arrays::asList)
                 .map(line -> line.stream()

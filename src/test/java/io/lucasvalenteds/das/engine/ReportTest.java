@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 class ReportTest {
 
-    private final Map<Class, LineParser> parsers = Map.ofEntries(
+    private final Map<Class<?>, LineParser<?>> parsers = Map.ofEntries(
         Map.entry(Salesman.class, new SalesmanParser(new SalesmanMapper())),
         Map.entry(Customer.class, new CustomerParser(new CustomerMapper())),
         Map.entry(Sale.class, new SalesParser(new SalesMapper(new SalesDataItemMapper())))

@@ -8,11 +8,13 @@ import io.lucasvalenteds.das.sale.SalesParser;
 import io.lucasvalenteds.das.salesman.SalesmanParser;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.javatuples.Pair;
@@ -24,9 +26,9 @@ public class Report {
     private final List<Customer> customers = new ArrayList<>();
     private final List<Salesman> salesmen = new ArrayList<>();
     private final List<Sale> sales = new ArrayList<>();
-    private final Map<Class, LineParser> parsers;
+    private final Map<Class<?>, LineParser<?>> parsers;
 
-    public Report(Map<Class, LineParser> parsers) {
+    public Report(Map<Class<?>, LineParser<?>> parsers) {
         this.parsers = parsers;
     }
 
@@ -101,7 +103,7 @@ public class Report {
     }
 
     public Single<String> generate(List<String> lines) {
-        logger.info("Report.generate: " + lines.size() + " records processed.");
+        logger.info("Report.generate: {} records processed.", lines.size());
         processLines(lines);
         return export();
     }

@@ -1,6 +1,6 @@
 package io.lucasvalenteds.das.engine;
 
-public class DataMapperTest {
+public abstract class DataMapperTest {
 
     protected static final String TOKEN = "ç";
 }

@@ -1,13 +1,16 @@
 package io.lucasvalenteds.das.engine;
 
+import io.reactivex.Single;
+import org.junit.jupiter.api.Test;
+
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 
 class InputOutputTest {
 
@@ -24,11 +27,14 @@ class InputOutputTest {
     }
 
     @Test
-    @Disabled
     void testItFailsToReadFileThatDoesNotExist() {
         var filePath = Path.of("src", "test", "resources", "not-sample.dat");
 
-        assertThrows(Exception.class, () -> manager.readFileLines(filePath).subscribe());
+        manager.readFileLines(filePath)
+            .test()
+            .assertError(NoSuchFileException.class)
+            .assertError(throwable -> throwable.getMessage().contains(filePath.toString()))
+            .dispose();
     }
 
     @Test
@@ -59,12 +65,12 @@ class InputOutputTest {
 
     private void createFixtures() {
         try {
-            Thread.sleep(500);
+            assertEquals(0, Single.timer(500, TimeUnit.MILLISECONDS).blockingGet());
             var file1 = Files.createFile(classpath.resolve("file-1.txt"));
             var file2 = Files.createFile(classpath.resolve("file-2.txt"));
             Files.deleteIfExists(file1);
             Files.deleteIfExists(file2);
-        } catch (IOException | InterruptedException exception) {
+        } catch (IOException exception) {
             exception.printStackTrace();
         }
     }
